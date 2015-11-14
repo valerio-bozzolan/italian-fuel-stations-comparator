@@ -11,10 +11,25 @@ html, body {
 #overworld {
 	position:absolute;
 	top:0;
-	left:0;
-	z-index:1000;
+	left:50px;
+	z-index:100;
+	margin-right:10px;
 }
 .prices td {
 	padding:4px !important;
-
+	white-space: nowrap;
+	font-family: "Roboto";
+}
+#overworld .card-panel {
+	padding: 5px 2px;
+}
+#overworld-buttons {
+	position:absolute;
+	top:5px;
+	left:50px;
+	z-index:100;
+}
+b.station-counter {
+	position:relative;
+	width:50px;
 }

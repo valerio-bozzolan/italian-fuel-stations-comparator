@@ -27,9 +27,11 @@ function get_header($uid, $args = array()) {
 	switch($args['theme']) {
 		case 'default':
 			enqueue_css('materialize');
+			enqueue_css('materialize.icons');
 			enqueue_css('leaflet');
 			enqueue_css('my-facile');
 			enqueue_js('jquery');
+			enqueue_js('jquery.ui');
 			enqueue_js('leaflet');
 			enqueue_js('leaflet.bouncemarker');
 			enqueue_js('materialize');
@@ -58,12 +60,41 @@ function get_header($uid, $args = array()) {
 <body>
 <div id="overworld">
 	<div class="card-panel">
-		<h1><?php echo HTML::a(
+		<h1 class="hide-on-small-only"><?php echo HTML::a(
 			$menuEntry->url,
 			$title,
-			$desc
+			$desc,
+			'orange-text'
 		) ?></h1>
+		<h5 class="hide-on-med-and-up"><?php echo HTML::a(
+			$menuEntry->url,
+			$title,
+			$desc,
+			'orange-text'
+		) ?></h5>
+		<p><?php printf(
+			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
+			HTML::tag(
+				'b',
+				$GLOBALS['db']->getValue(
+					"SELECT COUNT(*) as count FROM station",
+					'count'
+				),
+				HTML::property('class', 'station-counter')
+			)
+		) ?><br />
+		Ultimo aggiornamento: <em><b>3</b> ore fa!</em>
+		</p>
+		<form action="#" method="get">
+			<div class="input-field">
+				<i class="material-icons prefix">navigation</i>
+				<input type="text" name="search_address" placeholder="Cerca un indirizzo" />
+			</div>
+		</form>
 	</div>
+</div>
+<div id="overworld-buttons">
+	<a class="btn-floating btn-large waves-effect waves-light orange"><i class="material-icons">navigation</i></a>
 </div>
 <?php
 }

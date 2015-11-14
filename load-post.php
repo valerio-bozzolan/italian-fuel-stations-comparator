@@ -29,6 +29,11 @@ register_js(
 );
 
 register_js(
+	'jquery.ui',
+	URL . _ . INCLUDES . '/jquery-ui/jquery-ui.min.js'
+);
+
+register_js(
 	'materialize',
 	URL . _ . MATERIALIZE . '/js/materialize.min.js'
 );
@@ -61,6 +66,11 @@ register_css(
 register_css(
 	'my-facile',
 	URL . '/facile.css'
+);
+
+register_css(
+	'materialize.icons',
+	'https://fonts.googleapis.com/icon?family=Material+Icons'
 );
 
 add_menu_entries([
