@@ -18,7 +18,6 @@
 
 function get_footer($page = null, $args = null) {
 ?>
-</div>
 <?php load_module('theme-footer'); ?>
 </body>
 </html><?php

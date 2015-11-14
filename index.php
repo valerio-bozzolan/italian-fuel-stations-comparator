@@ -20,6 +20,12 @@ require 'load.php';
 
 get_header('home');
 ?>
-	<p><?php _e("Benvenuti") ?></p>
+<div id="map"></div>
+<div id="modal-search-addr-results" class="modal">
+	<div class="modal-content container">
+		<h4>Risultati ricerca</h4>
+		<ol></ol>
+	</div>
+</div>
 <?php
 get_footer();

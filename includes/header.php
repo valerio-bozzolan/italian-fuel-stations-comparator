@@ -27,8 +27,13 @@ function get_header($uid, $args = array()) {
 	switch($args['theme']) {
 		case 'default':
 			enqueue_css('materialize');
+			enqueue_css('leaflet');
+			enqueue_css('my-facile');
 			enqueue_js('jquery');
+			enqueue_js('leaflet');
+			enqueue_js('leaflet.bouncemarker');
 			enqueue_js('materialize');
+			enqueue_js('my-facile');
 			break;
 	}
 
@@ -51,16 +56,14 @@ function get_header($uid, $args = array()) {
 
 </head>
 <body>
-<div class="row">
-	<div class="col s11 m8">
+<div id="overworld">
+	<div class="card-panel">
 		<h1><?php echo HTML::a(
 			$menuEntry->url,
 			$title,
 			$desc
 		) ?></h1>
-		<h2><?php _esc_html($menuEntry->extra['desc']) ?></h2>
 	</div>
 </div>
-<div class="container">
 <?php
 }

@@ -20,6 +20,7 @@
 define('INCLUDES', 'includes');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
 define('JQUERY', INCLUDES . _ . 'jquery');
+define('LEAFLET', INCLUDES . _ . 'leaflet');
 define('SITE_NAME', 'Facile.it');
 
 register_js(
@@ -32,9 +33,34 @@ register_js(
 	URL . _ . MATERIALIZE . '/js/materialize.min.js'
 );
 
+register_js(
+	'leaflet',
+	URL . _ . LEAFLET . '/leaflet.js'
+);
+
+register_js(
+	'leaflet.bouncemarker',
+	URL . _ . INCLUDES . '/leaflet.bouncemarker/bouncemarker.js'
+);
+
+register_js(
+	'my-facile',
+	URL . '/facile.js'
+);
+
 register_css(
 	'materialize',
 	URL . _ . MATERIALIZE . '/css/materialize.min.css'
+);
+
+register_css(
+	'leaflet',
+	URL . _ . LEAFLET . '/leaflet.css'
+);
+
+register_css(
+	'my-facile',
+	URL . '/facile.css'
 );
 
 add_menu_entries([
@@ -54,3 +80,4 @@ add_menu_entries([
 
 require ABSPATH . _ . INCLUDES . _ . '/header.php';
 require ABSPATH . _ . INCLUDES . _ . '/footer.php';
+require ABSPATH . _ . INCLUDES . _ . '/functions.php';
