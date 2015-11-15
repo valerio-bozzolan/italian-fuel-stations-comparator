@@ -1,10 +1,20 @@
 var map;
-var euros = 40;
+var EUROS = 40;
 var errortooresults = true;
 var trovalatuazona = true;
 var nessunfornitore = true;
-var impianti = [];
 var ZOOM_OPENING_SEARCH_RESULT = 17;
+var Impianti = {
+	all: [],
+	exists: function(id) {
+		var i = 0;
+		while(i < this.all.length && this.all[i++] !== id);
+		return Impianti.all[i-1] === id;
+	},
+	add: function(id) {
+		this.all.push(id);
+	}
+};
 var Overworld = {
 	$el: undefined,
 	$action: undefined,
@@ -98,95 +108,89 @@ function getMarkersInBounds(preCallback, postCallback) {
 		trovalatuazona = false;
 		return;
 	}
-
 	trovalatuazona = true;
 
 	var bounds = map.getBounds();
-	var data = {};
-	data.lat_n = bounds.getNorth();
-	data.lat_s = bounds.getSouth();
-	data.lng_w = bounds.getWest();
-	data.lng_e = bounds.getEast();
+	var data = {
+		lat_n: bounds.getNorth(),
+		lat_s: bounds.getSouth(),
+		lng_w: bounds.getWest(),
+		lng_e: bounds.getEast()
+	};
 
-	$.getJSON(
-		"/api/bounds.php", data,
-		function(json) {
-			if(json.error) {
-				errortooresults && Materialize.toast("Vedo molte stazioni. Zomma per scoprirle!", 2000);
-				errortooresults = false;
-				return;
-			}
-			errortooresults = true;
-
-			if(json.length === 0) {
-				nessunfornitore && Materialize.toast("Nessun fornitore in questa zona", 2000);
-				nessunfornitore = false;
-				return;
-			}
-			nessunfornitore = true;
-
-			if(json.length > 90) {
-				Materialize.toast("Vedo " + json.length  + " risultati! Zooma per scoprirli", 2000);
-				return;
-			}
-
-			if(preCallback) {
-				var r = preCallback(bounds, json);
-				if(r === false) {
-					return;
-				}
-			}
-
-			for(var i=0; i<json.length; i++) {
-				if( impiantoExists( json[i].idImpianto ) ) {
-					//console.log("Esiste già" + json[i].idImpianto);
-					continue;
-				} else {
-					//console.log("Inserito" + json[i].idImpianto);
-					impianti.push(json[i].idImpianto);
-				}
-				var txt = "Litri ogni " + euros + " € per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
-				for(var j=0; j<json[i].prezzi.length; j++) {
-					txt += "<tr>";
-					var litres = (euros/json[i].prezzi[j].prezzo).toFixed(2);
-					if(j === 0) {
-						txt += "<td><b class='green-text'>" + litres + " L</b></td>";
-					} else {
-						txt += "<td>" + litres + "</b> L</td>";
-					}
-					txt += "<td>per il <b>" + json[i].prezzi[j].descCarburante  + "</b></td>";
-					txt += "<td>";
-					if(json[i].prezzi[j].isSelf === "1") {
-						txt += "<em>(self)</em>";
-					} else {
-						txt += "";
-					}
-					txt += "</td>";
-					txt += "</tr>";	
-				}
-				txt += "</table>";
-
-				txt += "<p><a href='#' class='add-favorites'>+ PREFERITI</a>";
-				txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
-
-				L.marker(
-					[json[i].latitudine, json[i].longitudine],
-					{ 
-						bounceOnAdd: true, 
-						bounceOnAddOptions: {duration: 500, height: 100}, 
-						bounceOnAddCallback: function() {}
-					}
-				)
-				.bindPopup(txt)
-				.addTo(map);
-
-			}
-
-			if(postCallback) {
-				postCallback(bounds, json);
-			}
+	$.getJSON("/api/bounds.php", data, function(json) {
+		if(json.error) {
+			errortooresults && Materialize.toast("Vedo molte stazioni. Zomma per scoprirle!", 2000);
+			errortooresults = false;
+			return;
 		}
-	);
+		errortooresults = true;
+
+		if(json.length === 0) {
+			nessunfornitore && Materialize.toast("Nessun fornitore in questa zona", 2000);
+			nessunfornitore = false;
+			return;
+		}
+		nessunfornitore = true;
+
+		if(json.length > 90) {
+			Materialize.toast("Vedo " + json.length  + " risultati! Zooma per scoprirli", 2000);
+			return;
+		}
+
+		if(preCallback && preCallback(bounds, json) === false ) {
+			return;
+		}
+
+		var minPriceId = 0;
+		var minPrice = 999.0;
+		for(var i=0; i<json.length; i++) {
+			if( Impianti.exists( json[i].idImpianto ) ) {
+				continue;
+			} else {
+				Impianti.add(json[i].idImpianto);
+			}
+			var txt = "Litri ogni " + EUROS + " € per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
+			for(var j=0; j<json[i].prezzi.length; j++) {
+				if(json[i].prezzi[j].prezzo < minPrice) {
+					minPrice = json[i].prezzi[j].prezzo;
+					minPriceId = j;
+				}
+
+				txt += "<tr>";
+				var litres = (EUROS/json[i].prezzi[j].prezzo).toFixed(2);
+				if(j === 0) {
+					txt += "<td><b class='green-text'>" + litres + " L</b></td>";
+				} else {
+					txt += "<td>" + litres + "</b> L</td>";
+				}
+				txt += "<td>per il <b>" + json[i].prezzi[j].descCarburante  + "</b></td>";
+				txt += "<td>";
+				if(json[i].prezzi[j].isSelf === "1") {
+					txt += "<em>(self)</em>";
+				} else {
+					txt += "";
+				}
+				txt += "</td>";
+				txt += "</tr>";	
+			}
+			txt += "</table>";
+
+			txt += "<p><a href='#' class='add-favorites'>+ PREFERITI</a>";
+			txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
+
+			L.marker([json[i].latitudine, json[i].longitudine], { 
+				bounceOnAdd: true, 
+				bounceOnAddOptions: {duration: 500, height: 100}, 
+				bounceOnAddCallback: function() {}
+			}).bindPopup(txt).addTo(map).options.idImpianto = json[i].idImpianto;
+		}
+
+
+		
+
+		postCallback && postCallback(bounds, json);
+	});
 }
 
 function suggest_nominatim_addresses(query) {
@@ -244,7 +248,7 @@ function nominatimJsonp(json) {
 					.text(json[i].licence)
 				)
 			);
-		}
+		}          
 		// Result links
 		$searchResults.find("a").click(function() {
 			$searchResults.closeModal();
@@ -255,9 +259,10 @@ function nominatimJsonp(json) {
 	$searchResults.openModal();
 }
 
-function enfatizeLatLng(latLng, duration) {
+function enfatizeLatLng(latLng, duration, radius) {
 	duration = duration || 2000;
-	var circle  = L.circle(latLng, 100).addTo(map);
+	radius = radius || 100;
+	var circle  = L.circle(latLng, radius).addTo(map);
 	window.setTimeout(function () {
 		map.removeLayer(circle);
 	}, duration);
@@ -270,6 +275,7 @@ function fitDocument() {
 }
 
 $(window).resize(function() {
+	// jQuery's windowResize is a bit crazy
 	setTimeout(fitDocument, 500);
 	setTimeout(fitDocument, 2000);
 	setTimeout(fitDocument, 4000);
@@ -282,12 +288,3 @@ $(document).on("click", ".add-favorites", function() {
 $(document).on("click", ".segnala-errore", function() {
 	Materialize.toast("La tua segnalazione è preziosa. Grazie!", 3000);
 });
-
-function impiantoExists(idImpianto) {
-	for(var i=0; i<impianti.length; i++) {
-		if(impianti[i] === idImpianto) {
-			return true;
-		}
-	}
-	return false;
-}

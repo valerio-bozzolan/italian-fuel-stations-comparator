@@ -42,11 +42,17 @@ if( ! empty($lat_n) && ! empty($lat_s) && ! empty($lng_e) && ! empty($lng_w) ) {
 
 	$n_results = count( $results );
 
-	if($n_results > 90) {
-		$results->error = true;
-	} else {
+	$results->error = $n_results > 90;
+
+	if(! $results->error) {
 		$results->error = false;
 
+		// "intify"
+		$n = count($n_results);
+		for($i=0; $i<$n_results; $i++) {
+			$results[$i]->idImpianto = (int) $results[$i]->idImpianto;
+			$results[$i]->prezzo = (float) $results[$i]->prezzo;
+		}
 
 		for($i=0; $i<$n_results; $i++) {
 			$results[$i]->prezzi = $db->getResults( sprintf(

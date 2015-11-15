@@ -83,7 +83,7 @@ function get_header($uid, $args = array()) {
 				HTML::property('class', 'station-counter')
 			)
 		) ?><br />
-		Ultimo aggiornamento: <em><b>3</b> ore fa!</em>
+		Ultimo aggiornamento: <em><b>4</b> ore fa!</em>
 		</p>
 		<form action="#" method="get">
 			<div class="input-field">
