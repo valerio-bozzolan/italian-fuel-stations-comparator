@@ -1,4 +1,6 @@
 var map;
+var euros = 40;
+var errortooresults = true;
 var trovalatuazona = true;
 var nessunfornitore = true;
 var impianti = [];
@@ -14,8 +16,8 @@ var Overworld = {
 		}
 		Overworld.running = true;
 
-		Overworld.$el.hide("fast", function() {
-			Overworld.$action.show("fast", function() {
+		Overworld.$el.hide("drop", {direction: "up"}, "slow", function() {
+			Overworld.$action.show("drop", {direction: "up"}, "fast", function() {
 				Overworld.running = false;
 			});
 		});	
@@ -26,10 +28,12 @@ var Overworld = {
 		}
 		Overworld.running = true;
 
+		map.closePopup();
+
 		Overworld.$el.find("input").val("");
 
-		Overworld.$action.hide("fast", function() {
-			Overworld.$el.show("fast", function() {
+		Overworld.$action.hide("drop", {direction: "up"}, "slow", function() {
+			Overworld.$el.show("drop", {direction: "up"}, "fast", function() {
 				Overworld.$el.find("input").focus();
 				Overworld.running = false;
 			});
@@ -37,13 +41,7 @@ var Overworld = {
 	}
 };
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
-
-	var $stationCounter = $(".station-counter");
-	var count = parseInt( $stationCounter.text() );
-	for(var i=count; i<10; i++) {
-	}
 
 	Overworld.$action = $("#overworld-buttons");
 	Overworld.$el	  = $("#overworld"); 
@@ -51,45 +49,45 @@ $(document).ready(function() {
 		Overworld.show();
 	});
 
+	$("form").submit(function(event) {
+		suggest_nominatim_addresses(
+			$("input[name=search_address]").val()
+		);
+		event.preventDefault();
+	});
 
-$("form").submit(function(event) {
-	suggest_nominatim_addresses(
-		$("input[name=search_address]").val()
-	);
-	event.preventDefault();
-});
+	map = L.map('map');
 
-map = L.map('map');
+	// create the tile layer with correct attribution
+	var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+	var osmAttrib='Map data Facile.it © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
+	map.addLayer(osm);
 
+	map.setView([42.5, 12.9], 7);
 
+	map.on("moveend", function() {
+		getMarkersInBounds();
+		return true;
+	});
 
-// create the tile layer with correct attribution
-var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-var osmAttrib='Map data Facile.it © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
-map.addLayer(osm);
+	map.on("popupopen", function() {
+		Overworld.hide();
+	});
 
-map.setView([42.5, 12.9], 7);
+	fitDocument();
 
-map.on("dragend", function() {
+	map.locate({setView: true, enableHighAccuracy: true, maxZoom: 16});
+	map.on("locationfound", function(e) {
+		var radius = e.accuracy / 2;
+		enfatizeLatLng(e.latlng, 2000);
+	});
+	map.on("locationerror", function(e) {
+		Materialize.toast("Posizione non disponibile. Zomma!", 3000);
+	});
+
 	getMarkersInBounds();
-	return true;
 });
-
-map.on("popupopen", function() {
-	Overworld.hide();
-});
-
-fitDocument();
-
-getMarkersInBounds();
-
-
-
-// On ready
-});
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 function getMarkersInBounds(preCallback, postCallback) {
 
@@ -113,6 +111,13 @@ function getMarkersInBounds(preCallback, postCallback) {
 	$.getJSON(
 		"/api/bounds.php", data,
 		function(json) {
+			if(json.error) {
+				errortooresults && Materialize.toast("Vedo molte stazioni. Zomma per scoprirle!", 2000);
+				errortooresults = false;
+				return;
+			}
+			errortooresults = true;
+
 			if(json.length === 0) {
 				nessunfornitore && Materialize.toast("Nessun fornitore in questa zona", 2000);
 				nessunfornitore = false;
@@ -121,7 +126,7 @@ function getMarkersInBounds(preCallback, postCallback) {
 			nessunfornitore = true;
 
 			if(json.length > 90) {
-				Materialize.toast("Ottimo! <em>" + json.length  + "</em> risultati. Zooma per caricare la tua zona!", 2000);
+				Materialize.toast("Vedo " + json.length  + " risultati! Zooma per scoprirli", 2000);
 				return;
 			}
 
@@ -140,18 +145,19 @@ function getMarkersInBounds(preCallback, postCallback) {
 					//console.log("Inserito" + json[i].idImpianto);
 					impianti.push(json[i].idImpianto);
 				}
-				var txt = "Prezzi per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
+				var txt = "Litri ogni " + euros + " € per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
 				for(var j=0; j<json[i].prezzi.length; j++) {
 					txt += "<tr>";
+					var litres = (euros/json[i].prezzi[j].prezzo).toFixed(2);
 					if(j === 0) {
-						txt += "<td><b class='green-text'>" + json[i].prezzi[j].prezzo + " €</b></td>";
+						txt += "<td><b class='green-text'>" + litres + " L</b></td>";
 					} else {
-						txt += "<td>" + json[i].prezzi[j].prezzo + "</b> €</td>";
+						txt += "<td>" + litres + "</b> L</td>";
 					}
 					txt += "<td>per il <b>" + json[i].prezzi[j].descCarburante  + "</b></td>";
 					txt += "<td>";
 					if(json[i].prezzi[j].isSelf === "1") {
-						txt += "<em>self-service</em>";
+						txt += "<em>(self)</em>";
 					} else {
 						txt += "";
 					}
@@ -265,9 +271,7 @@ function fitDocument() {
 
 $(window).resize(function() {
 	setTimeout(fitDocument, 500);
-	setTimeout(fitDocument, 1000);
 	setTimeout(fitDocument, 2000);
-	setTimeout(fitDocument, 3000);
 	setTimeout(fitDocument, 4000);
 });
 
