@@ -80,7 +80,7 @@ add_menu_entries([
 			_("Home"),
 			null, [
 				'title' => sprintf(
-					_("%s carburante"),
+					_("%s carburanti"),
 					SITE_NAME
 				),
 				'desc' => _("Confronta e scegli il miglior prezzo")

@@ -1,9 +1,7 @@
 var map;
+var trovalatuazona = true;
+var nessunfornitore = true;
 var impianti = [];
-var clickMarker = L.marker();
-var roundMarkers = L.layerGroup();
-var roundCircle;
-var radiusExtra = 400;
 var ZOOM_OPENING_SEARCH_RESULT = 17;
 var Overworld = {
 	$el: undefined,
@@ -32,6 +30,7 @@ var Overworld = {
 
 		Overworld.$action.hide("fast", function() {
 			Overworld.$el.show("fast", function() {
+				Overworld.$el.find("input").focus();
 				Overworld.running = false;
 			});
 		});
@@ -60,66 +59,88 @@ $("form").submit(function(event) {
 	event.preventDefault();
 });
 
-
 map = L.map('map');
 
-fitDocument();
+
 
 // create the tile layer with correct attribution
-var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
 var osmAttrib='Map data Facile.it © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
 map.addLayer(osm);
-map.addLayer(roundMarkers);
 
 map.setView([42.5, 12.9], 7);
 
-map.on("click", function(e) {
-	var popLocation = e.latlng;
-	getMarkers(
-		popLocation,
-		1000,
-		function(latLng, radius, json) {
-			if(json.length === 0) {
-				return false;
-			}
-		},
-		function(latLng, radius, json) {
-			if(json.length > 0) {
-				console.log(radius);
-				map.setView(latLng, radius);
-				enfatizeLatLng(latLng, radius);
-			}
-		}
-	);
+map.on("dragend", function() {
+	getMarkersInBounds();
+	return true;
 });
+
+map.on("popupopen", function() {
+	Overworld.hide();
+});
+
+fitDocument();
+
+getMarkersInBounds();
+
+
 
 // On ready
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function getMarkers(popLocation, radius, preCallback, postCallback) {
-	radius = radius || 900;
+function getMarkersInBounds(preCallback, postCallback) {
+
+	var zoom = map.getZoom();
+
+	if(zoom < 13) {
+		trovalatuazona && Materialize.toast("Trova la tua zona, zomma!", 3000);
+		trovalatuazona = false;
+		return;
+	}
+
+	trovalatuazona = true;
+
+	var bounds = map.getBounds();
+	var data = {};
+	data.lat_n = bounds.getNorth();
+	data.lat_s = bounds.getSouth();
+	data.lng_w = bounds.getWest();
+	data.lng_e = bounds.getEast();
 
 	$.getJSON(
-		"/api/latlng.php", {
-			lat: popLocation.lat,
-			lng: popLocation.lng,
-			radius: radius
-		},
+		"/api/bounds.php", data,
 		function(json) {
-			console.log(json);
+			if(json.length === 0) {
+				nessunfornitore && Materialize.toast("Nessun fornitore in questa zona", 2000);
+				nessunfornitore = false;
+				return;
+			}
+			nessunfornitore = true;
+
+			if(json.length > 90) {
+				Materialize.toast("Ottimo! <em>" + json.length  + "</em> risultati. Zooma per caricare la tua zona!", 2000);
+				return;
+			}
 
 			if(preCallback) {
-				var r = preCallback(popLocation, radius, json);
+				var r = preCallback(bounds, json);
 				if(r === false) {
 					return;
 				}
 			}
 
 			for(var i=0; i<json.length; i++) {
-				var txt = "<b>" + json[i].gestore + "</b><br />Prezzi: <br /><table class='prices'>";
+				if( impiantoExists( json[i].idImpianto ) ) {
+					//console.log("Esiste già" + json[i].idImpianto);
+					continue;
+				} else {
+					//console.log("Inserito" + json[i].idImpianto);
+					impianti.push(json[i].idImpianto);
+				}
+				var txt = "Prezzi per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
 				for(var j=0; j<json[i].prezzi.length; j++) {
 					txt += "<tr>";
 					if(j === 0) {
@@ -139,7 +160,8 @@ function getMarkers(popLocation, radius, preCallback, postCallback) {
 				}
 				txt += "</table>";
 
-				txt += "<p><a href='#' class='add-favorites'>+ PREFERITI</a></p>";
+				txt += "<p><a href='#' class='add-favorites'>+ PREFERITI</a>";
+				txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
 
 				L.marker(
 					[json[i].latitudine, json[i].longitudine],
@@ -150,12 +172,12 @@ function getMarkers(popLocation, radius, preCallback, postCallback) {
 					}
 				)
 				.bindPopup(txt)
-				.addTo(roundMarkers);
+				.addTo(map);
 
 			}
 
 			if(postCallback) {
-				postCallback(popLocation, radius, json);
+				postCallback(bounds, json);
 			}
 		}
 	);
@@ -180,7 +202,6 @@ function nominatimJsonp(json) {
 
 	if(json.length > 0) {
 		for(i=0; i<json.length; i++) {
-			// @TODO set result bounds
 			$list.append(
 				$("<li>")
 				.append(
@@ -201,6 +222,8 @@ function nominatimJsonp(json) {
 						map.fitBounds(
 							adaptedBounds
 						);
+
+						getMarkersInBounds();
 
 						Overworld.hide();
 
@@ -249,5 +272,18 @@ $(window).resize(function() {
 });
 
 $(document).on("click", ".add-favorites", function() {
-	Materialize.toast("Aggiunto ai tuoi preferiti!", 3000);
+	Materialize.toast("Aggiunto ai tuoi preferiti. Facile!", 3000);
 });
+
+$(document).on("click", ".segnala-errore", function() {
+	Materialize.toast("La tua segnalazione è preziosa. Grazie!", 3000);
+});
+
+function impiantoExists(idImpianto) {
+	for(var i=0; i<impianti.length; i++) {
+		if(impianti[i] === idImpianto) {
+			return true;
+		}
+	}
+	return false;
+}
