@@ -21,7 +21,7 @@ define('INCLUDES', 'includes');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
 define('JQUERY', INCLUDES . _ . 'jquery');
 define('LEAFLET', INCLUDES . _ . 'leaflet');
-define('SITE_NAME', 'Facile.it');
+define('SITE_NAME', 'Facile Carburanti');
 
 register_js(
 	'jquery',
@@ -79,10 +79,7 @@ add_menu_entries([
 			URL,
 			_("Home"),
 			null, [
-				'title' => sprintf(
-					_("%s carburanti"),
-					SITE_NAME
-				),
+				'title' => SITE_NAME,
 				'desc' => _("Confronta e scegli il miglior prezzo")
 			]
 	)

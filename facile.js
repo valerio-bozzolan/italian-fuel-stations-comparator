@@ -64,7 +64,7 @@ $(document).ready(function() {
 	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
 	map.addLayer(osm);
 
-	map.setView([42.5, 12.9], 7);
+	map.setView([45.49, 9.21], 15);
 
 	map.on("moveend", function() {
 		getMarkersInBounds();
