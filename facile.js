@@ -3,7 +3,6 @@ var EUROS = 40;
 var errortooresults = true;
 var trovalatuazona = true;
 var nessunfornitore = true;
-var ZOOM_OPENING_SEARCH_RESULT = 17;
 var Impianti = {
 	all: [],
 	exists: function(id) {
