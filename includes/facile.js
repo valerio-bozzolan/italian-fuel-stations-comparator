@@ -88,10 +88,10 @@ $(document).ready(function() {
 	// create the tile layer with correct attribution
 	var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
 	var osmAttrib='© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
+	var osm = new L.TileLayer(osmUrl, {maxZoom: 17, attribution: osmAttrib});		
 	map.addLayer(osm);
 
-	map.setView([45.49, 9.21], 15);
+	map.setView([41.49, 13.11], 6);
 
 	map.on("moveend", function() {
 		getMarkersInBounds();

@@ -53,7 +53,7 @@ register_js(
 
 register_js(
 	'my-facile',
-	URL . '/facile.js'
+	URL . _ . INCLUDES . '/facile.js'
 );
 
 register_css(
@@ -68,7 +68,7 @@ register_css(
 
 register_css(
 	'my-facile',
-	URL . '/facile.css'
+	URL . _ . INCLUDES . '/facile.css'
 );
 
 register_css(
