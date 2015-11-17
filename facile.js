@@ -171,7 +171,7 @@ function getMarkersInBounds(preCallback, postCallback) {
 			} else {
 				Impianti.add(json[i].idImpianto);
 			}
-			var txt = L10N.litersEuros.formatUnicorn({euros: EUROS, station: json[i].gestore});
+			var txt = L10N.litersEuros.formatUnicorn({euro: EUROS, station: json[i].gestore});
 			txt += "</b>: <br /><table class='prices'>";
 			for(var j=0; j<json[i].prezzi.length; j++) {
 				if(json[i].prezzi[j].prezzo < minPrice) {
@@ -201,15 +201,12 @@ function getMarkersInBounds(preCallback, postCallback) {
 			txt += "<p><a href='#' class='add-favorites'>+ " + L10N.actionFavorites + "</a>";
 			txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
 
-			L.marker([json[i].latitudine, json[i].longitudine], { 
+			var m = L.marker([json[i].latitudine, json[i].longitudine], { 
 				bounceOnAdd: true, 
 				bounceOnAddOptions: {duration: 500, height: 100}, 
 				bounceOnAddCallback: function() {}
 			}).bindPopup(txt).addTo(map).options.idImpianto = json[i].idImpianto;
 		}
-
-
-		
 
 		postCallback && postCallback(bounds, json);
 	});
