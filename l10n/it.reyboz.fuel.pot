@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2015 Valerio Bozzolan
+# This file is distributed under the same license as the fuel.reyboz.it package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: it.reyboz.fuel\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-18 00:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: about.php:9
+msgid "Il Team «Il Cloud non esiste»"
+msgstr ""
+
+#: about.php:10
+msgid ""
+"«Il Cloud non esiste» è il team che in 24 ore ha realizzato il progetto "
+"vincitore dell'Hackaton di Facile.it 2015 presentando un comparatore di "
+"prezzi dei carburanti."
+msgstr ""
+
+#: about.php:15 about.php:24
+#, php-format
+msgid "Articolo su %s"
+msgstr ""
+
+#: about.php:16 about.php:25
+#, php-format
+msgid "Leggi l'articolo su %s"
+msgstr ""
+
+#: about.php:41
+msgid "Offensive Security Entusiast"
+msgstr ""
+
+#: about.php:57
+msgid "Junior Hackathon hacker"
+msgstr ""
+
+#: about.php:58 about.php:75
+msgid "Smartphone & web developer."
+msgstr ""
+
+#: about.php:74
+msgid "Very Junior Hackathon hacker"
+msgstr ""
+
+#: about.php:91
+msgid "Developer - DBA & Marketing Specialist"
+msgstr ""
+
+#: about.php:92
+msgid ""
+"Sviluppo dell'importatore-bridge in PHP, MySQL fra i dati dello Sviluppo "
+"Economico. Presentatore del progetto."
+msgstr ""
+
+#: about.php:108
+msgid "Tactical Banana"
+msgstr ""
+
+#: about.php:109
+msgid "«Valerio per favore scrivi qui qualcosa di divertente». -Fatto-"
+msgstr ""
+
+#: about.php:125
+msgid "No-sleep Tech Orchestrator"
+msgstr ""
+
+#: about.php:126
+msgid "Sviluppo del frontend in PHP, MySQL e JavaScript."
+msgstr ""
+
+#: about.php:136
+msgid "Tecnologie utilizzate"
+msgstr ""
+
+#: about.php:140
+msgid "Nome tecnologia"
+msgstr ""
+
+#: about.php:141
+msgid "Ruolo"
+msgstr ""
+
+#: about.php:142
+msgid "Licenza di software libero"
+msgstr ""
+
+#: about.php:148
+msgid "Server web"
+msgstr ""
+
+#: about.php:153
+msgid "Framework casereccio in PHP"
+msgstr ""
+
+#: about.php:158
+msgid "Ambiente server GNU/Linux"
+msgstr ""
+
+#: about.php:163
+msgid ""
+"Libreria JavaScript per l'attraversamento, manipolazione e animazioni del DOM"
+msgstr ""
+
+#: about.php:168
+msgid "Libreria JavaScript per mappe interattive"
+msgstr ""
+
+#: about.php:173
+msgid "Framework responsivo ispirato al Material Design"
+msgstr ""
+
+#: about.php:178
+msgid "Set di icone Material Design"
+msgstr ""
+
+#: about.php:188
+msgid ""
+"Prezzi praticati e anagrafica degli impianti di carburante dal Ministero "
+"dello Sviluppo Economico italiano."
+msgstr ""
+
+#: about.php:189
+msgid "Carburanti - Prezzi praticati e anagrafica degli impianti"
+msgstr ""
+
+#: about.php:193
+msgid "Mappa collaborativa globale"
+msgstr ""
+
+#: about.php:198
+msgid "Logo e favicon"
+msgstr ""
+
+#: about.php:199
+msgid "Pubblico dominio"
+msgstr ""
+
+#: about.php:203
+msgid "Pre-processore di ipertesti"
+msgstr ""
+
+#: about.php:204
+msgid "Licenza PHP"
+msgstr ""
+
+#: about.php:208
+msgid ""
+"Software di presentazione HTML utilizzato per presentare il progetto "
+"all'hackaton"
+msgstr ""
+
+#: about.php:209
+msgid "Licenza Reveal.JS"
+msgstr ""
+
+#: about.php:215
+msgid "Torna alla mappa"
+msgstr ""
+
+#: about.php:215
+#, php-format
+msgid "Torna a %s"
+msgstr ""
+
+#: index.php:48
+#, php-format
+msgid "Confronta velocemente i prezzi fra %s stazioni di rifornimento."
+msgstr ""
+
+#: index.php:79
+msgid "La tua segnalazione è preziosa. Per ora però sara ignorata <_<"
+msgstr ""
+
+#: index.php:80
+msgid "Aggiunta ai preferiti... Se funzionassero <_<"
+msgstr ""
+
+#: index.php:81
+msgid "Geolocalizzazione fallita"
+msgstr ""
+
+#: index.php:82
+msgid "Trova la tua zona, zomma!"
+msgstr ""
+
+#: index.php:83
+msgid "Vedo molte stazioni. Fai zoom per scoprirle"
+msgstr ""
+
+#: index.php:84
+msgid "Nessuna pompa di benzina in questa zona"
+msgstr ""
+
+#: index.php:85
+msgid "Fai zoom! Qui ci sono {n} stazioni"
+msgstr ""
+
+#: index.php:86
+msgid "Litri ogni {euro} € per {station}"
+msgstr ""
+
+#: index.php:87
+msgid "Preferiti"
+msgstr ""
+
+#: index.php:88
+msgid "Segnala errore"
+msgstr ""
+
+#: index.php:89
+msgid "Nessun indirizzo trovato. Riprova con parole più semplici."
+msgstr ""
+
+#: load-post.php:22
+msgid "Compara carburanti"
+msgstr ""
+
+#: load-post.php:23
+msgid "Confronta i prezzi dei carburanti"
+msgstr ""
+
+#: load-post.php:83
+msgid "La mappa"
+msgstr ""
+
+#: load-post.php:88
+msgid "Informazioni sulla piattaforma"
+msgstr ""
+
+#: includes/functions.php:40
+msgid "Entra in contatto"
+msgstr ""
+
+#: includes/functions.php:40
+#, php-format
+msgid "Mettiti in contatto con %s"
+msgstr ""
+
+#: includes/functions.php:44
+#, php-format
+msgid "Informazioni legali su %s"
+msgstr ""
