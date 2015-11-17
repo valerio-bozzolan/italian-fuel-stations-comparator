@@ -1,3 +1,21 @@
+/*
+ * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
+ * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 var map;
 var EUROS = 40;
 var errortooresults = true;
@@ -69,7 +87,7 @@ $(document).ready(function() {
 
 	// create the tile layer with correct attribution
 	var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-	var osmAttrib='Map data Facile.it © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var osmAttrib='© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});		
 	map.addLayer(osm);
 
@@ -98,12 +116,16 @@ $(document).ready(function() {
 	getMarkersInBounds();
 });
 
+function toast(s) {
+	Materialize.toast(s, 3000);
+}
+
 function getMarkersInBounds(preCallback, postCallback) {
 
 	var zoom = map.getZoom();
 
 	if(zoom < 13) {
-		trovalatuazona && Materialize.toast("Trova la tua zona, zomma!", 3000);
+		trovalatuazona && toast( L10N.pleaseZoomIn );
 		trovalatuazona = false;
 		return;
 	}
@@ -119,21 +141,21 @@ function getMarkersInBounds(preCallback, postCallback) {
 
 	$.getJSON("/api/bounds.php", data, function(json) {
 		if(json.error) {
-			errortooresults && Materialize.toast("Vedo molte stazioni. Zomma per scoprirle!", 2000);
+			errortooresults && toast( L10N.errorTooStations );
 			errortooresults = false;
 			return;
 		}
 		errortooresults = true;
 
 		if(json.length === 0) {
-			nessunfornitore && Materialize.toast("Nessun fornitore in questa zona", 2000);
+			nessunfornitore && toast( L10N.noStations );
 			nessunfornitore = false;
 			return;
 		}
 		nessunfornitore = true;
 
 		if(json.length > 90) {
-			Materialize.toast("Vedo " + json.length  + " risultati! Zooma per scoprirli", 2000);
+			toast( L10N.tooStations.formatUnicorn({n: json.length}) );
 			return;
 		}
 
@@ -149,7 +171,8 @@ function getMarkersInBounds(preCallback, postCallback) {
 			} else {
 				Impianti.add(json[i].idImpianto);
 			}
-			var txt = "Litri ogni " + EUROS + " € per <b>" + json[i].gestore  + "</b>: <br /><table class='prices'>";
+			var txt = L10N.litersEuros.formatUnicorn({euros: EUROS, station: json[i].gestore});
+			txt += "</b>: <br /><table class='prices'>";
 			for(var j=0; j<json[i].prezzi.length; j++) {
 				if(json[i].prezzi[j].prezzo < minPrice) {
 					minPrice = json[i].prezzi[j].prezzo;
@@ -175,7 +198,7 @@ function getMarkersInBounds(preCallback, postCallback) {
 			}
 			txt += "</table>";
 
-			txt += "<p><a href='#' class='add-favorites'>+ PREFERITI</a>";
+			txt += "<p><a href='#' class='add-favorites'>+ " + L10N.actionFavorites + "</a>";
 			txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
 
 			L.marker([json[i].latitudine, json[i].longitudine], { 
@@ -253,7 +276,7 @@ function nominatimJsonp(json) {
 			$searchResults.closeModal();
 		});
 	} else {
-		$list.append( $("<li>").text( "Nessun indirizzo trovato" ) );
+		$list.append( $("<li>").text( L10N.noAddressFound ) );
 	}
 	$searchResults.openModal();
 }
@@ -273,6 +296,20 @@ function fitDocument() {
 	$("#map").width( w ).height( h );
 }
 
+// http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+String.prototype.formatUnicorn = function() {
+	var str = this.toString();
+	if(!arguments.length) {
+		return str;
+	}
+	var args = typeof arguments[0],
+	args = (("string" == args || "number" == args) ? arguments : arguments[0]);
+        for(var arg in args) {
+		str = str.replace(RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
+	}
+	return str;
+}
+
 $(window).resize(function() {
 	// jQuery's windowResize is a bit crazy
 	setTimeout(fitDocument, 500);
@@ -281,9 +318,9 @@ $(window).resize(function() {
 });
 
 $(document).on("click", ".add-favorites", function() {
-	Materialize.toast("Aggiunto ai tuoi preferiti. Facile!", 3000);
+	toast( L10N.addedToFavorites );
 });
 
 $(document).on("click", ".segnala-errore", function() {
-	Materialize.toast("La tua segnalazione è preziosa. Grazie!", 3000);
+	toast( L10N.errorSent );
 });
