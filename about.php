@@ -211,5 +211,8 @@ get_header('about');
 			</tbody>
 		</table>
 	</div>
+	<div class="section">
+		<p><?php echo HTML::a(URL, mdi_icon('location_on') . _("Torna alla mappa"), _("Torna a %s", SITE_NAME), 'btn red waves-effect waves-white' ) ?></p>
+	</div>
 </div>
 <?php get_footer();

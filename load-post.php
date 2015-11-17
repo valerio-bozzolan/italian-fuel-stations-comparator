@@ -19,7 +19,7 @@
 
 // Customizing Boz PHP - Another PHP framework
 
-define('SITE_NAME', _("F***** Carburanti") );
+define('SITE_NAME', _("Compara carburanti") );
 define('SITE_DESCRIPTION', _("Confronta i prezzi dei carburanti") );
 define('INCLUDES', 'includes');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
