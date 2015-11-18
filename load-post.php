@@ -19,12 +19,35 @@
 
 // Customizing Boz PHP - Another PHP framework
 
-define('SITE_NAME', _("Compara carburanti") );
-define('SITE_DESCRIPTION', _("Confronta i prezzi dei carburanti") );
 define('INCLUDES', 'includes');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
 define('JQUERY', INCLUDES . _ . 'jquery');
 define('LEAFLET', INCLUDES . _ . 'leaflet');
+
+// Load functions
+require ABSPATH . _ . INCLUDES . '/functions.php';
+require ABSPATH . _ . INCLUDES . '/header.php';
+require ABSPATH . _ . INCLUDES . '/footer.php';
+
+// Choose language
+switch( $lang = @ $_GET['l'] ) {
+	case 'en_US':
+	case 'it_IT':
+		gettext_rocks($lang);
+		break;
+	default:
+		// Choose from browser settings
+		switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
+			case 'it':
+				gettext_rocks('it_IT');
+				break;
+			default:
+				gettext_rocks('en_US');
+		}
+}
+
+define('SITE_NAME', _("Compara carburanti") );
+define('SITE_DESCRIPTION', _("Confronta i prezzi dei carburanti") );
 
 register_js(
 	'jquery',
@@ -88,7 +111,3 @@ add_menu_entries([
 			_("Informazioni sulla piattaforma")
 	)
 ]);
-
-require ABSPATH . _ . INCLUDES . _ . '/header.php';
-require ABSPATH . _ . INCLUDES . _ . '/footer.php';
-require ABSPATH . _ . INCLUDES . _ . '/functions.php';

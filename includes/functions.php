@@ -41,9 +41,20 @@ function get_in_touch($url, $who) {
 }
 
 function legal_notes($url, $license, $project) {
-	return HTML::a($url, $license, sprintf( _("Informazioni legali su %s"), $project ), 'waves-effect waves-teal btn-flat' );
+	return HTML::a($url, $license, sprintf( _("Informazioni legali su %s"), $project ) );
 }
 
 function mdi_icon($uid, $class = 'left') {
 	return "<i class=\"material-icons $class\">$uid</i>";
+}
+
+/**
+ * Run GNU Gettext
+ */
+function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l10n', $encoding = 'UTF-8') {
+	putenv("LANG=$lang.$encoding");
+	setlocale(LC_MESSAGES, "$lang.$encoding");
+	bindtextdomain($domain, $folder);
+	textdomain($domain);
+	bind_textdomain_codeset($domain, $encoding);
 }

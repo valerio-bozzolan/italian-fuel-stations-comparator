@@ -32,7 +32,7 @@ get_header('about');
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Alexander Busta</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('asd') ?>" alt="Alexander Busta" />
 						</div>
@@ -42,13 +42,13 @@ get_header('about');
 							</p>
 						</div>
 					</div>
-				<p><?php echo get_in_touch('http://cesare.io', "Cesare de Cal") ?></p>
+				<!-- <p><?php echo get_in_touch('#', "Alexander Busta") ?></p> -->
 				</div>
 			</div>
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Cesare de Cal</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('cesare.decal@gmail.com') ?>" alt="Cesare de Cal" />
 						</div>
@@ -65,7 +65,7 @@ get_header('about');
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Edoardo de Cal</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('edoardofrancescodecal@gmail.com') ?>" alt="Edoardo de Cal" />
 						</div>
@@ -82,7 +82,7 @@ get_header('about');
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Fabio Bottan</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('fabio bottan') ?>" alt="Fabio Bottan" />
 						</div>
@@ -99,7 +99,7 @@ get_header('about');
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Marcelino Franchini</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('marcelino@franchini.email') ?>" alt="Marcelino Franchini" />
 						</div>
@@ -116,7 +116,7 @@ get_header('about');
 			<div class="col s12 m6 l4">
 				<div class="card-panel">
 					<h3>Valerio Bozzolan</h3>
-					<div class="row">
+					<div class="row valign-wrapper">
 						<div class="col s3">
 							<img class="responsive-img circle" src="<?php echo get_gravatar('boz@reyboz.it') ?>" alt="Valerio Bozzolan" />
 						</div>
