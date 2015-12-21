@@ -38,15 +38,18 @@ function get_header($uid, $args = array()) {
 <head>
 	<title><?php echo SITE_NAME ?> - <?php echo get_menu_entry($uid)->name ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="icon" type="image/jpeg" href="<?php echo URL . '/content/fuel-64px.png' ?>" /><?php load_module('theme-header') ?>
+	<link rel="icon" type="image/jpeg" href="<?php echo URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('theme-header') ?>
 
 </head>
 <!--
+ This website is
   _____                                          _             _____                            _
  |  ___|  _ __    ___    ___      __ _   ___    (_)  _ __     |  ___|  _ __    ___    ___    __| |   ___    _ __ ___
  | |_    | '__|  / _ \  / _ \    / _` | / __|   | | | '_ \    | |_    | '__|  / _ \  / _ \  / _` |  / _ \  | '_ ` _ \
  |  _|   | |    |  __/ |  __/   | (_| | \__ \   | | | | | |   |  _|   | |    |  __/ |  __/ | (_| | | (_) | | | | | | |
  |_|     |_|     \___|  \___|    \__,_| |___/   |_| |_| |_|   |_|     |_|     \___|  \___|  \__,_|  \___/  |_| |_| |_|
+
+ Learn more from:
 
  http://www.gnu.org
 
@@ -60,6 +63,6 @@ function print_title($uid) {
 	echo "<h1>" . HTML::a(
 		$menuEntry->url,
 		$menuEntry->name,
-		$menuEntry->getExtra('description')
+		$menuEntry->get('description')
 	) . "</h1>\n";
 }

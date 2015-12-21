@@ -19,53 +19,58 @@
 
 require '../load.php';
 
-http_json_header();
-
-$lat_n = @$_GET['lat_n'];
-$lat_s = @$_GET['lat_s'];
-$lng_e = @$_GET['lng_e'];
-$lng_w = @$_GET['lng_w'];
-
 $results = array();
 
-if( ! empty($lat_n) && ! empty($lat_s) && ! empty($lng_e) && ! empty($lng_w) ) {
+if( isset( $_GET['lat_n'], $_GET['lat_s'], $_GET['lng_e'], $_GET['lng_w'] ) ) {
 
-	$results = $GLOBALS['db']->getResults( sprintf(
-		"SELECT station.idImpianto, station.gestore, station.latitudine, station.longitudine FROM station WHERE " .
-		"station.latitudine BETWEEN %f AND %f AND " .
-		"station.longitudine BETWEEN %f AND %f",
-		$lat_s,
-		$lat_n,
-		$lng_w,
-		$lng_e
-	) );
+	$lat_n = & $_GET['lat_n'];
+	$lat_s = & $_GET['lat_s'];
+	$lng_e = & $_GET['lng_e'];
+	$lng_w = & $_GET['lng_w'];
 
+	$results = $db->getResults(
+		sprintf(
+			"SELECT station.station_ID, station.station_lat, station.station_lon, " .
+			"stationowner.stationowner_uid, stationowner.stationowner_name " .
+			"FROM {$db->getTables('station', 'stationowner')} " .
+			"WHERE station.station_lat BETWEEN %f AND %f " .
+			"AND station.station_lon BETWEEN %f AND %f " .
+			"AND station.stationowner_ID = stationowner.stationowner_ID",
+			$lat_s,
+			$lat_n,
+			$lng_w,
+			$lng_e
+		),
+		'Station'
+	);
 	$n_results = count( $results );
 
 	$results->error = $n_results > 90;
 
 	if(! $results->error) {
-		$results->error = false;
 
-		// "intify"
-		$n = count($n_results);
+		// Get prices
 		for($i=0; $i<$n_results; $i++) {
-			$results[$i]->idImpianto = (int) $results[$i]->idImpianto;
-			$results[$i]->prezzo = (float) $results[$i]->prezzo;
-		}
-
-		for($i=0; $i<$n_results; $i++) {
-			$results[$i]->prezzi = $db->getResults( sprintf(
-				"SELECT DISTINCT price.prezzo, price.isSelf, descCarburante " .
-				"FROM price, station " .
-				"WHERE price.idImpianto = %d AND price.idImpianto = station.idImpianto " .
-				"ORDER BY price.prezzo"
-				,
-				$results[$i]->idImpianto
-			) );
+			$results[$i]->prices = $db->getResults(
+				sprintf(
+					"SELECT DISTINCT price.price_value, price.price_self, " .
+					"fuel.fuel_uid, fuel.fuel_name " .
+					"FROM {$db->getTables('price', 'fuel')} " .
+					"WHERE price.station_ID = %d " .
+					"AND price.fuel_ID = fuel.fuel_ID " .
+					"ORDER BY price.price_value",
+					$results[$i]->idImpianto
+				),
+				'Price'
+			);
 		}
 	}
 
 }
 
-echo json_encode($results);
+http_json_header();
+
+echo json_encode(
+	$results,
+	isset( $_GET['pretty'] ) ? JSON_PRETTY_PRINT : 0
+);

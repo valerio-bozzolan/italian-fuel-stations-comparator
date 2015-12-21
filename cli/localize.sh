@@ -26,14 +26,28 @@
 copyright="Valerio Bozzolan"
 
 # The prefix of your localization's files
-# (you have to know how Gettext works to change it).
+# You have to know how GNU Gettext works to change it.
 package="fuel.reyboz.it"
 
+rtfm() {
+	echo Usage:
+	echo $1 SITE_ROOT
+	echo Example:
+	echo $1 /var/www/mysite
+}
+
+if [ -z "$1" ]; then
+	rtfm $0
+	exit 1
+fi
+
+path="$1"
+
 # Generate/update the .pot file from the single script (index.php)
-xgettext --copyright-holder="$copyright" --package-name=$package --from-code=UTF-8 --keyword=_e --default-domain=$package -o l10n/$package.pot *.php api/*.php includes/*.php
+xgettext --copyright-holder="$copyright" --package-name=$package --from-code=UTF-8 --keyword=_e --default-domain=$package -o "$path"/l10n/$package.pot "$path"/*.php "$path"/*/*.php
 
 # Generate/update the .po files from the .pot file
-find ./l10n/ -name \*.po -execdir msgmerge -o $package.po $package.po ../../$package.pot \;
+find "$path"/l10n -name \*.po -execdir msgmerge -o $package.po $package.po ../../$package.pot \;
 
 # Generate/update the .mo files from .po files
-find ./l10n/ -name \*.po -execdir msgfmt -o $package.mo $package.po \;
+find "$path"/l10n -name \*.po -execdir msgfmt -o $package.mo $package.po \;

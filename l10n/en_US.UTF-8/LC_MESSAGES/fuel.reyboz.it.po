@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it.reyboz.fuel\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 22:06+0100\n"
+"POT-Creation-Date: 2015-12-21 12:37+0100\n"
 "PO-Revision-Date: 2015-11-18 07:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,11 +18,11 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: about.php:9
+#: about.php:26
 msgid "Il Team «Il Cloud non esiste»"
 msgstr "“Cloud storage doesn’t exist” team"
 
-#: about.php:10
+#: about.php:27
 msgid ""
 "«Il Cloud non esiste» è il team che in 24 ore ha realizzato il progetto "
 "vincitore dell'Hackaton di Facile.it 2015 presentando un comparatore di "
@@ -32,37 +32,37 @@ msgstr ""
 "winning project of the Facile.it 2015 Hackathon, presenting a fuel price "
 "comparator."
 
-#: about.php:15 about.php:24
+#: about.php:32 about.php:41
 #, php-format
 msgid "Articolo su %s"
 msgstr "Article on %s"
 
-#: about.php:16 about.php:25
+#: about.php:33 about.php:42
 #, php-format
 msgid "Leggi l'articolo su %s"
 msgstr "Read the article on %s"
 
-#: about.php:41
+#: about.php:58
 msgid "Offensive Security Entusiast"
 msgstr "Offensive Security Entusiast"
 
-#: about.php:57
+#: about.php:74
 msgid "Junior Hackathon hacker"
 msgstr "Junior Hackathon hacker"
 
-#: about.php:58 about.php:75
+#: about.php:75 about.php:92
 msgid "Smartphone & web developer."
 msgstr "Smartphone & web developer."
 
-#: about.php:74
+#: about.php:91
 msgid "Very Junior Hackathon hacker"
 msgstr "Very Junior Hackathon hacker"
 
-#: about.php:91
+#: about.php:108
 msgid "Developer - DBA & Marketing Specialist"
 msgstr "Developer - DBA & Marketing Specialist"
 
-#: about.php:92
+#: about.php:109
 msgid ""
 "Sviluppo dell'importatore-bridge in PHP, MySQL fra i dati dello Sviluppo "
 "Economico. Presentatore del progetto."
@@ -70,113 +70,113 @@ msgstr ""
 "Developed the PHP bridge, MySQL using the data supplied by Economic "
 "Development. Presenter of the project"
 
-#: about.php:108
+#: about.php:125
 msgid "Tactical Banana"
 msgstr "Tactical Banana"
 
-#: about.php:109
+#: about.php:126
 msgid "«Valerio per favore scrivi qui qualcosa di divertente». -Fatto-"
 msgstr "«Valerio please write down something funny». -Done-"
 
-#: about.php:125
+#: about.php:142
 msgid "No-sleep Tech Orchestrator"
 msgstr "No-sleep Tech Orchestrator"
 
-#: about.php:126
+#: about.php:143
 msgid "Sviluppo del frontend in PHP, MySQL e JavaScript."
 msgstr "Developed front-end in PHP, MySQL and JavaScript"
 
-#: about.php:136
+#: about.php:153
 msgid "Tecnologie utilizzate"
 msgstr "Technologies"
 
-#: about.php:140
+#: about.php:157
 msgid "Nome tecnologia"
 msgstr "Technology name"
 
-#: about.php:141
+#: about.php:158
 msgid "Ruolo"
 msgstr "Team role"
 
-#: about.php:142
+#: about.php:159
 msgid "Licenza di software libero"
 msgstr "Free software license"
 
-#: about.php:148
+#: about.php:165
 msgid "Server web"
 msgstr "Server web"
 
-#: about.php:153
+#: about.php:170
 msgid "Framework casereccio in PHP"
 msgstr "Homemade framework in PHP"
 
-#: about.php:158
+#: about.php:175
 msgid "Ambiente server GNU/Linux"
 msgstr "GNU/Linux server environment"
 
-#: about.php:163
+#: about.php:180
 msgid ""
 "Libreria JavaScript per l'attraversamento, manipolazione e animazioni del DOM"
 msgstr "JavaScript library for manipulating and animating DOM"
 
-#: about.php:168
+#: about.php:185
 msgid "Libreria JavaScript per mappe interattive"
 msgstr "JavaScript framework for interactive maps"
 
-#: about.php:173
+#: about.php:190
 msgid "Framework responsivo ispirato al Material Design"
 msgstr "Responsive framework inspired by Material Design"
 
-#: about.php:178
+#: about.php:195
 msgid "Set di icone Material Design"
 msgstr "Material Design icon set"
 
-#: about.php:188
+#: about.php:205
 msgid ""
 "Prezzi praticati e anagrafica degli impianti di carburante dal Ministero "
 "dello Sviluppo Economico italiano."
 msgstr ""
 
-#: about.php:189
+#: about.php:206
 msgid "Carburanti - Prezzi praticati e anagrafica degli impianti"
 msgstr "Fuels - prices and details info about fuel stations"
 
-#: about.php:193
+#: about.php:210
 msgid "Mappa collaborativa globale"
 msgstr "Collaborative global map"
 
-#: about.php:198
+#: about.php:215
 msgid "Logo e favicon"
 msgstr "Logo and favicon"
 
-#: about.php:199
+#: about.php:216
 msgid "Pubblico dominio"
 msgstr "Public domain"
 
-#: about.php:203
+#: about.php:220
 msgid "Pre-processore di ipertesti"
 msgstr "Pre-processor of hypertexts"
 
-#: about.php:204
+#: about.php:221
 msgid "Licenza PHP"
 msgstr "PHP licence"
 
-#: about.php:208
+#: about.php:225
 msgid ""
 "Software di presentazione HTML utilizzato per presentare il progetto "
 "all'hackaton"
 msgstr ""
 "Software for HTML presentations, used to present the project at the hackathon"
 
-#: about.php:209
+#: about.php:226
 msgid "Licenza Reveal.JS"
 msgstr "Reveal.JS license"
 
-#: about.php:215
+#: about.php:232
 msgid "Torna alla mappa"
 msgstr "Back to the map"
 
-#: about.php:215
+#: about.php:232
 #, php-format
 msgid "Torna a %s"
 msgstr "Back to %s"
@@ -186,65 +186,102 @@ msgstr "Back to %s"
 msgid "Confronta velocemente i prezzi fra %s stazioni di rifornimento."
 msgstr "Quickly compare fuel prices between %s stations."
 
-#: index.php:79
+#: index.php:72
+msgid "Risultati ricerca"
+msgstr ""
+
+#: index.php:78
 msgid "La tua segnalazione è preziosa. Per ora però sara ignorata <_<"
 msgstr "Your report is important to us. "
 
-#: index.php:80
+#: index.php:79
 msgid "Aggiunta ai preferiti... Se funzionassero <_<"
 msgstr "Added to favorites. "
 
-#: index.php:81
+#: index.php:80
 msgid "Geolocalizzazione fallita"
 msgstr "I couldn’t locate yourself"
 
-#: index.php:82
+#: index.php:81
 msgid "Trova la tua zona, zomma!"
 msgstr "Find your area, zoom in!"
 
-#: index.php:83
+#: index.php:82
 msgid "Vedo molte stazioni. Fai zoom per scoprirle"
 msgstr "I see many stations in this area. Zoom in"
 
-#: index.php:84
+#: index.php:83
 msgid "Nessuna pompa di benzina in questa zona"
 msgstr "No fuel station found in this area."
 
-#: index.php:85
+#: index.php:84
 msgid "Fai zoom! Qui ci sono {n} stazioni"
 msgstr "Zoom in! There are {n} stations"
 
-#: index.php:86
+#: index.php:85
 msgid "Litri ogni {euro} € per {station}"
 msgstr "{euro}/liters per {station}"
 
-#: index.php:87
+#: index.php:86
 msgid "Preferiti"
 msgstr "Favorites"
 
-#: index.php:88
+#: index.php:87
 msgid "Segnala errore"
 msgstr "Report error"
 
-#: index.php:89
+#: index.php:88
 msgid "Nessun indirizzo trovato. Riprova con parole più semplici."
 msgstr "No address found. Try with simpler words."
 
-#: load-post.php:49
+#: load-post.php:55
 msgid "Compara carburanti"
 msgstr "Compare fuel prices"
 
-#: load-post.php:50
+#: load-post.php:56
 msgid "Confronta i prezzi dei carburanti"
 msgstr "Compare fuels prices"
 
-#: load-post.php:106
+#: load-post.php:112
 msgid "La mappa"
 msgstr "The map"
 
-#: load-post.php:111
+#: load-post.php:117
 msgid "Informazioni sulla piattaforma"
 msgstr "Platform information"
+
+#: cli/import-functions.php:76
+#, php-format
+msgid "La stazione miseID %d doveva essere già stata inserita"
+msgstr ""
+
+#: cli/import.php:73
+#, php-format
+msgid "Utilizzo: %s FILE_STAZIONI.csv PREZZI_ALLE_8.csv"
+msgstr ""
+
+#: cli/import.php:84
+msgid "File delle stazioni non trovato"
+msgstr ""
+
+#: cli/import.php:88
+msgid "Impossibile aprire il file delle stazioni"
+msgstr ""
+
+#: cli/import.php:121
+msgid "File dei prezzi non trovato"
+msgstr ""
+
+#: cli/import.php:125
+msgid "Impossibile aprire il file dei prezzi"
+msgstr ""
+
+#: cli/import.php:153
+#, php-format
+msgid ""
+"Errore:\n"
+"\t%s.\n"
+msgstr ""
 
 #: includes/functions.php:40
 msgid "Entra in contatto"

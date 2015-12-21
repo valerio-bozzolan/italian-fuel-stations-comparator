@@ -22,11 +22,11 @@
 require 'load.php';
 
 enqueue_css('leaflet');
-enqueue_css('my-facile');
+enqueue_css('my-fuel-map');
 enqueue_js('jquery.ui');
 enqueue_js('leaflet');
 enqueue_js('leaflet.bouncemarker');
-enqueue_js('my-facile');
+enqueue_js('my-fuel-map');
 
 get_header('map');
 ?>
@@ -48,14 +48,13 @@ get_header('map');
 			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
 			HTML::tag(
 				'b',
-				$GLOBALS['db']->getValue(
-					"SELECT COUNT(*) as count FROM station",
+				$db->getValue(
+					"SELECT COUNT(*) as count FROM {$db->getTable('station')}",
 					'count'
 				),
 				HTML::property('class', 'station-counter')
 			)
-		) ?>
-		</p>
+		) ?></p>
 		<form action="#" method="get">
 			<div class="input-field">
 				<i class="material-icons prefix">navigation</i>
@@ -70,7 +69,7 @@ get_header('map');
 <div id="map"></div>
 <div id="modal-search-addr-results" class="modal">
 	<div class="modal-content container">
-		<h4>Risultati ricerca</h4>
+		<h4><?php _e("Risultati ricerca") ?></h4>
 		<ol></ol>
 	</div>
 </div>

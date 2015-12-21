@@ -20,30 +20,36 @@
 // Customizing Boz PHP - Another PHP framework
 
 define('INCLUDES', 'includes');
+define('IMAGES', 'images');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
 define('JQUERY', INCLUDES . _ . 'jquery');
 define('LEAFLET', INCLUDES . _ . 'leaflet');
 
 // Load functions
 require ABSPATH . _ . INCLUDES . '/functions.php';
+require ABSPATH . _ . INCLUDES . '/classes.php';
 require ABSPATH . _ . INCLUDES . '/header.php';
 require ABSPATH . _ . INCLUDES . '/footer.php';
 
 // Choose language
-switch( $lang = @ $_GET['l'] ) {
-	case 'en_US':
-	case 'it_IT':
-		gettext_rocks($lang);
-		break;
-	default:
-		// Choose from browser settings
-		switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
-			case 'it':
-				gettext_rocks('it_IT');
-				break;
-			default:
-				gettext_rocks('en_US');
-		}
+if( isset( $_GET['l'] ) ) {
+	$lang = $_GET['l'];
+	switch( $lang ) {
+		case 'en_US':
+		case 'it_IT':
+			gettext_rocks($lang);
+			break;
+		default:
+			// Choose from browser settings
+			switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
+				case 'it':
+					gettext_rocks('it_IT');
+					break;
+				case 'en':
+				default:
+					gettext_rocks('en_US');
+			}
+	}
 }
 
 define('SITE_NAME', _("Compara carburanti") );
@@ -75,7 +81,7 @@ register_js(
 );
 
 register_js(
-	'my-facile',
+	'my-fuel-map',
 	URL . _ . INCLUDES . '/facile.js'
 );
 
@@ -90,7 +96,7 @@ register_css(
 );
 
 register_css(
-	'my-facile',
+	'my-fuel-map',
 	URL . _ . INCLUDES . '/facile.css'
 );
 

@@ -21,16 +21,24 @@ var EUROS = 40;
 var errortooresults = true;
 var trovalatuazona = true;
 var nessunfornitore = true;
-var Impianti = {
+var Stations = {
 	all: [],
 	exists: function(id) {
 		var i = 0;
 		while(i < this.all.length && this.all[i++] !== id);
-		return Impianti.all[i-1] === id;
+		return this.all[i-1] === id;
 	},
 	add: function(id) {
 		this.all.push(id);
+	},
+	alreadyAdded: function(id) {
+		if( this.exists(id) ) {
+			return true;
+		}
+		this.add(id);
+		return false;
 	}
+
 };
 var Overworld = {
 	$el: undefined,
@@ -166,29 +174,28 @@ function getMarkersInBounds(preCallback, postCallback) {
 		var minPriceId = 0;
 		var minPrice = 999.0;
 		for(var i=0; i<json.length; i++) {
-			if( Impianti.exists( json[i].idImpianto ) ) {
+			if( Stations.alreadyAdded( json[i].station_ID ) ) {
 				continue;
-			} else {
-				Impianti.add(json[i].idImpianto);
 			}
-			var txt = L10N.litersEuros.formatUnicorn({euro: EUROS, station: json[i].gestore});
+
+			var txt = L10N.litersEuros.formatUnicorn({euro: EUROS, station: json[i].stationowner_name});
 			txt += "</b>: <br /><table class='prices'>";
-			for(var j=0; j<json[i].prezzi.length; j++) {
-				if(json[i].prezzi[j].prezzo < minPrice) {
-					minPrice = json[i].prezzi[j].prezzo;
+			for(var j=0; j<json[i].prices.length; j++) {
+				if(json[i].prices[j].price_value < minPrice) {
+					minPrice = json[i].prices[j].price_value;
 					minPriceId = j;
 				}
 
 				txt += "<tr>";
-				var litres = (EUROS/json[i].prezzi[j].prezzo).toFixed(2);
+				var litres = (EUROS/json[i].prices[j].price_value).toFixed(2);
 				if(j === 0) {
 					txt += "<td><b class='green-text'>" + litres + " L</b></td>";
 				} else {
 					txt += "<td>" + litres + "</b> L</td>";
 				}
-				txt += "<td>per il <b>" + json[i].prezzi[j].descCarburante  + "</b></td>";
+				txt += "<td>per il <b>" + json[i].prices[j].fuel_name  + "</b></td>";
 				txt += "<td>";
-				if(json[i].prezzi[j].isSelf === "1") {
+				if(json[i].prices[j].price_self) {
 					txt += "<em>(self)</em>";
 				} else {
 					txt += "";
@@ -201,11 +208,16 @@ function getMarkersInBounds(preCallback, postCallback) {
 			txt += "<p><a href='#' class='add-favorites'>+ " + L10N.actionFavorites + "</a>";
 			txt += "<a href='#' style='float:right; color: red; font-size:0.8em' class='segnala-errore'>segnala errore</a></p>";
 
-			var m = L.marker([json[i].latitudine, json[i].longitudine], { 
+			var m = L.marker([json[i].station_lat, json[i].station_lon], { 
 				bounceOnAdd: true, 
 				bounceOnAddOptions: {duration: 500, height: 100}, 
 				bounceOnAddCallback: function() {}
-			}).bindPopup(txt).addTo(map).options.idImpianto = json[i].idImpianto;
+			})
+			 .bindPopup(txt)
+			 .addTo(map)
+			 .options;
+
+			m.station_ID = json[i].station_ID;
 		}
 
 		postCallback && postCallback(bounds, json);
