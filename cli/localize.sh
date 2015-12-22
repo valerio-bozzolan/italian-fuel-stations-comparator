@@ -20,7 +20,7 @@
 #
 #############################################################################
 
-# This script do the entire Gettext i18n workflow
+# This script does the entire GNU Gettext workflow
 
 # The copyright older of your localization
 copyright="Valerio Bozzolan"

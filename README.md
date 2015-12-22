@@ -12,9 +12,9 @@ Use the http://fuel.reyboz.it online mirror. It has data updated on a daily basi
 Heroes and original technologies in the [/about.php](http://fuel.reyboz.it/about.php) page of the online mirror.
 
 ## Hacking
-Clone the source code using Bazaar:
+Go in your `www` folder and clone the source code using Bazaar:
 
-    bzr clone lp:it-fuel-stations-comparator
+    bzr branch lp:it-fuel-stations-comparator
 
 ## Installation
 Have GNU/Linux, PHP and MySQL/MariaDB working.
@@ -34,9 +34,19 @@ Please download data from the Italian [Ministero dello Sviluppo Economico](http:
 
 They are released under the terms of the Italian [Open Data License v2.0](http://www.dati.gov.it/iodl/2.0/).
 
-The `cli/import-mise.php` can import them into your DB:
+### Manually import MISE .csv
+The `cli/import-mise.php` helps you:
 
     php ./cli/import-mise.php anagrafica_impianti_attivi.csv prezzo_alle_8.csv
+
+### Automatically download and import MISE .csv
+Put a similar line in your cronjob:
+
+    /var/www/cli/download-import-mise.sh "php /var/www/cli/import-mise.php"
+
+.. or:
+
+    su www-data -s /bin/sh -c '/var/www/cli/download-import-mise.sh "php /var/www/cli/import-mise.php"'
 
 ## Pull requests
 Push in Launchpad:
