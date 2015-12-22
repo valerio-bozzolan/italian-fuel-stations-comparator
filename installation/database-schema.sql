@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2015 at 12:38 PM
+-- Generation Time: Dec 22, 2015 at 01:26 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.4.45-1~dotdeb+6.1
 
@@ -27,8 +27,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `comune` (
   `comune_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `comune_uid` varchar(64) NOT NULL,
-  `comune_name` varchar(64) NOT NULL,
+  `comune_uid` varchar(35) NOT NULL,
+  `comune_name` varchar(35) NOT NULL,
   PRIMARY KEY (`comune_ID`),
   UNIQUE KEY `comune_uid` (`comune_uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -74,8 +74,9 @@ CREATE TABLE `price` (
   `fuel_ID` int(10) unsigned NOT NULL,
   `station_ID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`price_ID`),
-  KEY `station_ID` (`station_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `station_ID` (`station_ID`),
+  KEY `fuel_ID` (`fuel_ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -86,7 +87,7 @@ CREATE TABLE `price` (
 CREATE TABLE `provincia` (
   `provincia_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `provincia_uid` varchar(2) NOT NULL,
-  `provincia_name` varchar(64) NOT NULL,
+  `provincia_name` varchar(32) NOT NULL,
   PRIMARY KEY (`provincia_ID`),
   UNIQUE KEY `provincia_uid` (`provincia_uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -113,7 +114,7 @@ CREATE TABLE `rel_provincia_comune` (
 CREATE TABLE `station` (
   `station_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `station_miseID` int(10) unsigned NOT NULL,
-  `station_name` varchar(64) NOT NULL,
+  `station_name` varchar(128) NOT NULL,
   `station_type` enum('STRADA_STATALE','AUTOSTRADALE','ALTRO') NOT NULL,
   `station_address` varchar(255) NOT NULL,
   `station_lat` float NOT NULL,

@@ -77,7 +77,7 @@ get_header('map');
 var L10N = {
 	errorSent: "<?php _esc_attr( _("La tua segnalazione è preziosa. Per ora però sara ignorata <_<") ) ?>",
 	addedToFavorites: "<?php _esc_attr( _("Aggiunta ai preferiti... Se funzionassero <_<") ) ?>",
-	noLocation: "<?php _esc_attr( _("Geolocalizzazione fallita") ) ?>",
+	noLocation: "<?php _esc_attr( _("Posizione non disponibile.") ) ?>",
 	pleaseZoomIn: "<?php _esc_attr( _("Trova la tua zona, zomma!") ) ?>",
 	errorTooStations: "<?php _esc_attr( _("Vedo molte stazioni. Fai zoom per scoprirle") ) ?>",
 	noStations: "<?php _esc_attr( _("Nessuna pompa di benzina in questa zona") ) ?>",

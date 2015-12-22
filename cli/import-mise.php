@@ -29,8 +29,8 @@
  * http://www.dati.gov.it/iodl/2.0/
  */
 
-require '../load.php';
-require 'import-functions.php';
+require __DIR__ . '/../load.php';
+require __DIR__ . '/import-mise-functions.php';
 
 //$db->query("TRUNCATE {$db->getTable('rel_provincia_comune')}");
 //$db->query("TRUNCATE {$db->getTable('provincia')}");
@@ -41,30 +41,18 @@ require 'import-functions.php';
 //$db->query("TRUNCATE {$db->getTable('fuel')}");
 $db->query("TRUNCATE {$db->getTable('price')}");
 
-$comuni = $db->getResults(
-	"SELECT comune_ID, comune_uid FROM {$db->getTable('comune')} ORDER BY comune_uid",
-	'Comune'
-);
-$provincie = $db->getResults(
-	"SELECT provincia_ID, provincia_uid FROM {$db->getTable('provincia')} ORDER BY provincia_uid",
-	'Provincia'
-);
-$fuels = $db->getResults(
-	"SELECT fuel_ID, fuel_uid FROM {$db->getTable('fuel')} ORDER BY fuel_uid",
-	'Fuel'
-);
-$stations = $db->getResults(
-	"SELECT station_ID, station_miseID FROM {$db->getTable('station')} ORDER BY station_miseID",
-	'Station'
-);
-$stationowners = $db->getResults(
-	"SELECT stationowner_ID, stationowner_uid FROM {$db->getTable('stationowner')} ORDER BY stationowner_uid",
-	'Stationowner'
-);
-$fuelproviders = $db->getResults(
-	"SELECT fuelprovider_ID, fuelprovider_uid FROM {$db->getTable('fuelprovider')} ORDER BY fuelprovider_uid",
-	'Fuelprovider'
-);
+$comuni        = $db->getResults("SELECT comune_ID, comune_uid FROM {$db->getTable('comune')}", 'Comune');
+$comuni        = indexed_array($comuni, 'comune_uid', 'comune_ID');
+$provincie     = $db->getResults("SELECT provincia_ID, provincia_uid FROM {$db->getTable('provincia')}", 'Provincia');
+$provincie     = indexed_array($provincie, 'provincia_uid', 'provincia_ID');
+$fuels         = $db->getResults("SELECT fuel_ID, fuel_uid FROM {$db->getTable('fuel')}", 'Fuel');
+$fuels         = indexed_array($fuels, 'fuel_uid', 'fuel_ID');
+$stations      = $db->getResults("SELECT station_ID, station_miseID FROM {$db->getTable('station')}", 'Station');
+$stations      = indexed_array($stations, 'station_miseID', 'station_ID');
+$stationowners = $db->getResults("SELECT stationowner_ID, stationowner_uid FROM {$db->getTable('stationowner')}", 'Stationowner');
+$stationowners = indexed_array($stationowners, 'stationowner_uid', 'stationowner_ID');
+$fuelproviders = $db->getResults("SELECT fuelprovider_ID, fuelprovider_uid FROM {$db->getTable('fuelprovider')}", 'Fuelprovider');
+$fuelproviders = indexed_array($fuelproviders, 'fuelprovider_uid', 'fuelprovider_ID');
 
 try {
 	if( ! isset( $argv[1], $argv[2] ) ) {

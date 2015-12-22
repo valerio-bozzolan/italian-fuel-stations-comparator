@@ -17,59 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Fu**ing increase performance
- */
-function dichotomic_property_in_array($heystack, $needle, $compare_field, $return_existing_field = null, & $i) {
-	if( $return_existing_field === null ) {
-		$return_existing_field = $compare_field;
+function indexed_array($rows, $property_index, $property_return) {
+	$indexed = [];
+	foreach($rows as $row) {
+		$indexed[ $row->{$property_index} ] = $row->{$property_return};
 	}
-
-	$i = 0;
-	$inf = 0;
-	$n = count($heystack);
-	$sup = $n - 1;
-	$val = null;
-
-	while($inf <= $sup) {
-		$i = (int) ( ($inf + $sup) / 2 );
-		$val = $heystack[$i]->{$compare_field};
-
-		if( $val === $needle ) {
-			return $heystack[$i]->{$return_existing_field};
-		} elseif($needle > $val) {
-			$inf = $i + 1;
-		} else {
-			$sup = $i - 1;
-		}
-	}
-
-	if($val !== null && $needle > $val) {
-		// Please insert after this
-		$i++;
-	}
-
-	return false;
-}
-
-/*
- * Insert an element in an array maintaining ordered indexes
- * Assuming 0 < $here < count($heystack)
- */
-function insert_here(& $heystack, $insert, $here) {
-	$n = count($heystack);
-	for($i=$n; $i>$here; $i--) {
-		$heystack[$i] = $heystack[$i-1];
-	}
-	$heystack[ $here ] = $insert;
+	return $indexed;
 }
 
 function get_station_ID($station_miseID, $station_name = null, $station_type = null, $station_address = null, $station_lat = null, $station_lon = null, $comune_ID = null, $stationowner_ID = null, $fuelprovider_ID = null) {
 	global $db, $stations;
 
-	$station_ID = dichotomic_property_in_array($stations, $station_miseID, 'station_miseID', 'station_ID', $here);
-	if($station_ID !== false) {
-		return $station_ID;
+	if( isset( $stations[ $station_miseID ] ) ) {
+		return $stations[ $station_miseID ];
 	}
 
 	if( $station_name === null ) {
@@ -108,17 +68,14 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 		'Station'
 	);
 
-	insert_here($stations, $station, $here);
-
-	return $station->station_ID;
+	return $stations[ $station->station_miseID ] = $station->station_ID;
 }
 
 function get_comune_ID($comune_uid, $comune_name, $provincia_name) {
 	global $db, $comuni;
 
-	$comune_ID = dichotomic_property_in_array($comuni, $comune_uid, 'comune_uid', 'comune_ID', $here);
-	if($comune_ID !== false) {
-		return $comune_ID;
+	if( isset( $comuni[ $comune_uid ] ) ) {
+		return $comuni[ $comune_uid ];
 	}
 
 	$db->insertRow('comune', [
@@ -136,8 +93,6 @@ function get_comune_ID($comune_uid, $comune_name, $provincia_name) {
 		'Comune'
 	);
 
-	insert_here($comuni, $comune, $here);
-
 	$db->insertRow('rel_provincia_comune', [
 		new DBCol(
 			'provincia_ID',
@@ -150,15 +105,14 @@ function get_comune_ID($comune_uid, $comune_name, $provincia_name) {
 		new DBCol('comune_ID', $comune->comune_ID, 'd')
 	] );
 
-	return $comune->comune_ID;
+	return $comuni[ $comune->comune_uid ] = $comune->comune_ID;
 }
 
 function get_fuelprovider_ID($fuelprovider_uid, $fuelprovider_name) {
 	global $db, $fuelproviders;
 
-	$fuelprovider_ID = dichotomic_property_in_array($fuelproviders, $fuelprovider_uid, 'fuelprovider_uid', 'fuelprovider_ID', $here);
-	if($fuelprovider_ID !== false) {
-		return $fuelprovider_ID;
+	if( isset( $fuelproviders[ $fuelprovider_uid ] ) ) {
+		return $fuelproviders[ $fuelprovider_uid ];
 	}
 
 	$db->insertRow('fuelprovider', [
@@ -176,12 +130,15 @@ function get_fuelprovider_ID($fuelprovider_uid, $fuelprovider_name) {
 		'Fuelprovider'
 	);
 
-	insert_here($fuelproviders, $fuelprovider, $here);
-
-	return $fuelprovider->fuelprovider_ID;
+	return $fuelproviders[ $fuelprovider->fuelprovider_uid ] = $fuelprovider->fuelprovider_ID;
 }
+
 function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 	global $db, $stationowners;
+
+	if( isset( $stationowners[ $stationowner_uid ] ) ) {
+		return $stationowners[ $stationowner_uid ];
+	}
 
 	// Lol
 	if( ($pos = strpos($stationowner_name, ' IL REGISTRO IMPRESE NON GARANTISCE') )  !== false )  {
@@ -192,9 +149,9 @@ function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 		$stationowner_note = null;
 	}
 
-	$stationowner_ID = dichotomic_property_in_array($stationowners, $stationowner_uid, 'stationowner_uid', 'stationowner_ID', $here);
-	if($stationowner_ID !== false) {
-		return $stationowner_ID;
+	// Another check
+	if( isset( $stationowners[ $stationowner_uid ] ) ) {
+		return $stationowners[ $stationowner_uid ];
 	}
 
 	$db->insertRow('stationowner', [
@@ -213,17 +170,14 @@ function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 		'Stationowner'
 	);
 
-	insert_here($stationowners, $stationowner, $here);
-
-	return $stationowner->stationowner_ID;
+	return $stationowners[ $stationowner->stationowner_uid ] = $stationowner->stationowner_ID;;
 }
 
 function get_fuel_ID($fuel_uid, $fuel_name) {
 	global $db, $fuels;
 
-	$fuel_ID = dichotomic_property_in_array($fuels, $fuel_uid, 'fuel_uid', 'fuel_ID', $here);
-	if($fuel_ID !== false) {
-		return $fuel_ID;
+	if( isset( $fuels[ $fuel_uid ] ) ) {
+		return $fuels[ $fuel_uid ];
 	}
 
 	$db->insertRow('fuel', [
@@ -241,17 +195,14 @@ function get_fuel_ID($fuel_uid, $fuel_name) {
 		'Fuel'
 	);
 
-	insert_here($fuels, $fuel, $here);
-
-	return $fuel->fuel_ID;
+	return $fuels[ $fuel->fuel_uid ] = $fuel->fuel_ID;
 }
 
 function get_provincia_ID($provincia_uid, $provincia_name) {
 	global $db, $provincie;
 
-	$provincia_ID = dichotomic_property_in_array($provincie, $provincia_uid, 'provincia_uid', 'provincia_ID', $here);
-	if($provincia_ID !== false) {
-		return $provincia_ID;
+	if( isset( $provincie[ $provincia_uid ] ) ) {
+		return $provincie[ $provincia_uid ];
 	}
 
 	$db->insertRow('provincia', [
@@ -269,7 +220,5 @@ function get_provincia_ID($provincia_uid, $provincia_name) {
 		'Provincia'
 	);
 
-	insert_here($provincie, $provincia, $here);
-
-	return $provincia->provincia_ID;
+	return $provincie[ $provincia->provincia_uid ] = $provincia->provincia_ID;
 }

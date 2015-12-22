@@ -36,12 +36,12 @@ rtfm() {
 	echo $1 /var/www/mysite
 }
 
-if [ -z "$1" ]; then
+path="$1"
+
+if [ -z "$path" ]; then
 	rtfm $0
 	exit 1
 fi
-
-path="$1"
 
 # Generate/update the .pot file from the single script (index.php)
 xgettext --copyright-holder="$copyright" --package-name=$package --from-code=UTF-8 --keyword=_e --default-domain=$package -o "$path"/l10n/$package.pot "$path"/*.php "$path"/*/*.php

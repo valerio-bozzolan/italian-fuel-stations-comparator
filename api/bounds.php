@@ -59,7 +59,7 @@ if( isset( $_GET['lat_n'], $_GET['lat_s'], $_GET['lng_e'], $_GET['lng_w'] ) ) {
 					"WHERE price.station_ID = %d " .
 					"AND price.fuel_ID = fuel.fuel_ID " .
 					"ORDER BY price.price_value",
-					$results[$i]->idImpianto
+					$results[$i]->station_ID
 				),
 				'Price'
 			);

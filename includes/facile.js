@@ -18,9 +18,9 @@
 
 var map;
 var EUROS = 40;
-var errortooresults = true;
-var trovalatuazona = true;
-var nessunfornitore = true;
+var errorTooStations = true;
+var pleaseZoomIn = true;
+var noStations = true;
 var Stations = {
 	all: [],
 	exists: function(id) {
@@ -28,14 +28,11 @@ var Stations = {
 		while(i < this.all.length && this.all[i++] !== id);
 		return this.all[i-1] === id;
 	},
-	add: function(id) {
-		this.all.push(id);
-	},
 	alreadyAdded: function(id) {
 		if( this.exists(id) ) {
 			return true;
 		}
-		this.add(id);
+		this.all.push(id);
 		return false;
 	}
 
@@ -116,9 +113,11 @@ $(document).ready(function() {
 	map.on("locationfound", function(e) {
 		var radius = e.accuracy / 2;
 		enfatizeLatLng(e.latlng, 2000);
+
+		Overworld.hide();
 	});
 	map.on("locationerror", function(e) {
-		Materialize.toast("Posizione non disponibile. Zomma!", 3000);
+		toast( L10n.noLocation );
 	});
 
 	getMarkersInBounds();
@@ -129,15 +128,12 @@ function toast(s) {
 }
 
 function getMarkersInBounds(preCallback, postCallback) {
-
-	var zoom = map.getZoom();
-
-	if(zoom < 13) {
-		trovalatuazona && toast( L10N.pleaseZoomIn );
-		trovalatuazona = false;
+	if(map.getZoom() < 13) {
+		pleaseZoomIn && toast( L10N.pleaseZoomIn );
+		pleaseZoomIn = false;
 		return;
 	}
-	trovalatuazona = true;
+	pleaseZoomIn = true;
 
 	var bounds = map.getBounds();
 	var data = {
@@ -149,18 +145,18 @@ function getMarkersInBounds(preCallback, postCallback) {
 
 	$.getJSON("/api/bounds.php", data, function(json) {
 		if(json.error) {
-			errortooresults && toast( L10N.errorTooStations );
-			errortooresults = false;
+			errorTooStations && toast( L10N.errorTooStations );
+			errorTooStations = false;
 			return;
 		}
-		errortooresults = true;
+		errorTooStations = true;
 
 		if(json.length === 0) {
-			nessunfornitore && toast( L10N.noStations );
-			nessunfornitore = false;
+			noStations && toast( L10N.noStations );
+			noStations = false;
 			return;
 		}
-		nessunfornitore = true;
+		noStations = true;
 
 		if(json.length > 90) {
 			toast( L10N.tooStations.formatUnicorn({n: json.length}) );

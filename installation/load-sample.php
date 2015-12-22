@@ -17,7 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Basic settings for Boz PHP - Another PHP framework
+/*
+ * Basic settings for Boz PHP - Another PHP framework
+ * Copy this file in the root of the website called 'load.php'.
+ */
 
 // Database info
 $database = '';

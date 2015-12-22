@@ -17,11 +17,15 @@ Clone the source code using Bazaar:
     bzr clone lp:it-fuel-stations-comparator
 
 ## Installation
+Have GNU/Linux, PHP and MySQL/MariaDB working.
+
 This project is built over the [Boz-PHP - Another PHP framework](https://github.com/valerio-bozzolan/boz-php-another-php-framework). Install it in your `/usr/share`:
 
     bzr branch lp:boz-php-another-php-framework /usr/share/boz-php-another-php-framework
 
-After that you only have to rename and fill the `load-sample.php` to `load.php` and import in MySQL/MariaDB the `database-schema.sql` from the `installation` folder.
+Import in MySQL/MariaDB the `database-schema.sql` from the `installation` folder.
+
+Also in the `installation` folder copy the `load-sample.php` in the root folder as `load.php` and fill with your MySQL/MariaDB credentials.
 
 ## Import data from MISE
 Please download data from the Italian [Ministero dello Sviluppo Economico](http://www.sviluppoeconomico.gov.it/index.php/it/open-data/elenco-dataset/2032336-carburanti-prezzi-praticati-e-anagrafica-degli-impianti):
@@ -30,9 +34,9 @@ Please download data from the Italian [Ministero dello Sviluppo Economico](http:
 
 They are released under the terms of the Italian [Open Data License v2.0](http://www.dati.gov.it/iodl/2.0/).
 
-The `cli/import.php` can import them into your DB:
+The `cli/import-mise.php` can import them into your DB:
 
-    php ./cli/import.php anagrafica_impianti_attivi.csv prezzo_alle_8.csv
+    php ./cli/import-mise.php anagrafica_impianti_attivi.csv prezzo_alle_8.csv
 
 ## Pull requests
 Push in Launchpad:
