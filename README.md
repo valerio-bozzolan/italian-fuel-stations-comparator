@@ -1,15 +1,15 @@
 # Italian petrol pumps comparator
 ![Italian petrol pumps comparator](http://fuel.reyboz.it/images/fuel-64px.png)
 
-This web app allows you to list in a map and sort all fuel suppliers who are in a particular area, also it provides the current prices on every suppliers.
+This web app allows you to list in a map and sort all fuel suppliers in a particular area, also it provides the current prices of every suppliers.
 
-We have engineered this solution in a Hackathon that was sponsored by *Facile.it*, an Italian price comparator. This submission **won the competition**.
+We have engineered this solution durring a Hackathon sponsored by *Facile.it*, an Italian price comparison website. Our submission **won the competition**.
 
 ## Use
-Use the http://fuel.reyboz.it online mirror. It has data updated on a daily basis.
+Use the http://fuel.reyboz.it online mirror. Its data is updated on a daily basis.
 
 ## More about
-Heroes and original technologies in the [/about.php](http://fuel.reyboz.it/about.php) page of the online mirror.
+The original heroes and used technologies can be found in the [/about.php](http://fuel.reyboz.it/about.php) page of the online mirror.
 
 ## Hacking
 Go in your `www` folder and clone the source code using Bazaar:
