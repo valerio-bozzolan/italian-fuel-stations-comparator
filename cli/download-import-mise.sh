@@ -37,7 +37,8 @@ wgets() {
 	-H 'User-Agent: Mozilla/5.0 (X11; Debian; Linux x86_64; rv:39.0) Gecko/20100101 Iceweasel/39.0' \
 	-H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
 	-H 'Accept-Language: en-US,it-IT;q=0.8,it;q=0.5,en;q=0.3' \
-	--compressed -H 'Connection: keep-alive'
+	--compressed -H 'Connection: keep-alive' \
+	--silent
 }
 
 stations="$(mktemp)"

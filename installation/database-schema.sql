@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2015 at 01:26 AM
+-- Generation Time: Dec 28, 2015 at 08:19 PM
 -- Server version: 5.5.38
 -- PHP Version: 5.4.45-1~dotdeb+6.1
 
@@ -70,12 +70,14 @@ CREATE TABLE `price` (
   `price_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `price_value` float NOT NULL,
   `price_self` tinyint(1) NOT NULL,
-  `price_date` varchar(16) NOT NULL,
+  `price_date` datetime NOT NULL,
   `fuel_ID` int(10) unsigned NOT NULL,
   `station_ID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`price_ID`),
   KEY `station_ID` (`station_ID`),
-  KEY `fuel_ID` (`fuel_ID`)
+  KEY `fuel_ID` (`fuel_ID`),
+  KEY `price_self` (`price_self`),
+  KEY `price_date` (`price_date`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

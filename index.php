@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// The map
+/*
+ * The map
+ */
 
 require 'load.php';
 
@@ -29,6 +31,9 @@ enqueue_js('leaflet.bouncemarker');
 enqueue_js('my-fuel-map');
 
 get_header('map');
+
+$last_price_rfc3339 = last_price_date(DateTime::RFC3339);
+$last_price_text    = last_price_date();
 ?>
 <div id="overworld">
 	<div class="card-panel">
@@ -55,10 +60,14 @@ get_header('map');
 				HTML::property('class', 'station-counter')
 			)
 		) ?></p>
+		<p class="last-update"><?php printf(
+			_("Ultimo aggiornamento: %s."),
+			"<time datetime=\"$last_price_rfc3339\">$last_price_text</time>"
+		) ?></p>
 		<form action="#" method="get">
 			<div class="input-field">
 				<i class="material-icons prefix">navigation</i>
-				<input type="text" name="search_address" placeholder="Cerca un indirizzo" />
+				<input type="text" name="search_address" placeholder="<?php _esc_attr( _("Cerca un indirizzo") ) ?>" />
 			</div>
 		</form>
 	</div>

@@ -32,24 +32,23 @@ require ABSPATH . _ . INCLUDES . '/header.php';
 require ABSPATH . _ . INCLUDES . '/footer.php';
 
 // Choose language
-if( isset( $_GET['l'] ) ) {
-	$lang = $_GET['l'];
-	switch( $lang ) {
-		case 'en_US':
-		case 'it_IT':
-			gettext_rocks($lang);
-			break;
-		default:
-			// Choose from browser settings
-			switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
-				case 'it':
-					gettext_rocks('it_IT');
-					break;
-				case 'en':
-				default:
-					gettext_rocks('en_US');
-			}
-	}
+switch( $lang = @$_GET['l'] ) {
+	case 'en_US':
+	case 'it_IT':
+		gettext_rocks($lang);
+		break;
+	default:
+		// Choose from browser settings
+		switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
+			case 'it':
+				gettext_rocks('it_IT');
+				break;
+			case 'en':
+				gettext_rocks('en_US');
+				break;
+			default:
+				gettext_rocks('en_US');
+		}
 }
 
 define('SITE_NAME', _("Compara carburanti") );
@@ -82,7 +81,7 @@ register_js(
 
 register_js(
 	'my-fuel-map',
-	URL . _ . INCLUDES . '/facile.js'
+	URL . _ . INCLUDES . '/scripts.js'
 );
 
 register_css(
@@ -97,7 +96,7 @@ register_css(
 
 register_css(
 	'my-fuel-map',
-	URL . _ . INCLUDES . '/facile.css'
+	URL . _ . INCLUDES . '/style.css'
 );
 
 register_css(
@@ -109,7 +108,7 @@ add_menu_entries([
 	new MenuEntry(
 			'map',
 			URL,
-			_("La mappa")
+			_("Mappa")
 	),
 	new MenuEntry(
 			'about',

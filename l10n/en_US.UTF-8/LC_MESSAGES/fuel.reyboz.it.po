@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it.reyboz.fuel\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-21 12:37+0100\n"
-"PO-Revision-Date: 2015-11-18 07:22+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2015-12-28 23:02+0100\n"
+"PO-Revision-Date: 2015-12-28 23:00+0100\n"
+"Last-Translator: Valerio Bozzolan <boz@reyboz.it>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: about.php:26
@@ -136,6 +136,8 @@ msgid ""
 "Prezzi praticati e anagrafica degli impianti di carburante dal Ministero "
 "dello Sviluppo Economico italiano."
 msgstr ""
+"Price table and station list from the Italian Ministry of Economic "
+"Development."
 
 #: about.php:206
 msgid "Carburanti - Prezzi praticati e anagrafica degli impianti"
@@ -181,107 +183,114 @@ msgstr "Back to the map"
 msgid "Torna a %s"
 msgstr "Back to %s"
 
-#: index.php:48
+#: index.php:53
 #, php-format
 msgid "Confronta velocemente i prezzi fra %s stazioni di rifornimento."
 msgstr "Quickly compare fuel prices between %s stations."
 
-#: index.php:72
-msgid "Risultati ricerca"
-msgstr ""
+#: index.php:64
+#, php-format
+msgid "Ultimo aggiornamento: %s."
+msgstr "Last update: %s."
 
-#: index.php:78
+#: index.php:70
+msgid "Cerca un indirizzo"
+msgstr "Search an address"
+
+#: index.php:81
+msgid "Risultati ricerca"
+msgstr "Search results"
+
+#: index.php:87
 msgid "La tua segnalazione è preziosa. Per ora però sara ignorata <_<"
 msgstr "Your report is important to us. "
 
-#: index.php:79
+#: index.php:88
 msgid "Aggiunta ai preferiti... Se funzionassero <_<"
 msgstr "Added to favorites. "
 
-#: index.php:80
-msgid "Geolocalizzazione fallita"
-msgstr "I couldn’t locate yourself"
+#: index.php:89
+msgid "Posizione non disponibile."
+msgstr "Position not avaiable."
 
-#: index.php:81
+#: index.php:90
 msgid "Trova la tua zona, zomma!"
 msgstr "Find your area, zoom in!"
 
-#: index.php:82
+#: index.php:91
 msgid "Vedo molte stazioni. Fai zoom per scoprirle"
 msgstr "I see many stations in this area. Zoom in"
 
-#: index.php:83
+#: index.php:92
 msgid "Nessuna pompa di benzina in questa zona"
 msgstr "No fuel station found in this area."
 
-#: index.php:84
+#: index.php:93
 msgid "Fai zoom! Qui ci sono {n} stazioni"
 msgstr "Zoom in! There are {n} stations"
 
-#: index.php:85
+#: index.php:94
 msgid "Litri ogni {euro} € per {station}"
 msgstr "{euro}/liters per {station}"
 
-#: index.php:86
+#: index.php:95
 msgid "Preferiti"
 msgstr "Favorites"
 
-#: index.php:87
+#: index.php:96
 msgid "Segnala errore"
 msgstr "Report error"
 
-#: index.php:88
+#: index.php:97
 msgid "Nessun indirizzo trovato. Riprova con parole più semplici."
 msgstr "No address found. Try with simpler words."
 
-#: load-post.php:55
+#: load-post.php:54
 msgid "Compara carburanti"
 msgstr "Compare fuel prices"
 
-#: load-post.php:56
+#: load-post.php:55
 msgid "Confronta i prezzi dei carburanti"
 msgstr "Compare fuels prices"
 
-#: load-post.php:112
-msgid "La mappa"
-msgstr "The map"
+#: load-post.php:111
+msgid "Mappa"
+msgstr "Map"
 
-#: load-post.php:117
+#: load-post.php:116
 msgid "Informazioni sulla piattaforma"
 msgstr "Platform information"
 
-#: cli/import-functions.php:76
+#: cli/import-mise-functions.php:36
 #, php-format
 msgid "La stazione miseID %d doveva essere già stata inserita"
-msgstr ""
+msgstr "The station miseID %d should be inserted yet"
 
-#: cli/import.php:73
+#: cli/import-mise.php:61
 #, php-format
 msgid "Utilizzo: %s FILE_STAZIONI.csv PREZZI_ALLE_8.csv"
-msgstr ""
+msgstr "Usage: %s FILE_STATIONS.csv PRICES_AT_8.csv"
 
-#: cli/import.php:84
+#: cli/import-mise.php:72
 msgid "File delle stazioni non trovato"
-msgstr ""
+msgstr "Station file not found"
 
-#: cli/import.php:88
+#: cli/import-mise.php:76
 msgid "Impossibile aprire il file delle stazioni"
-msgstr ""
+msgstr "Unable to open the station file"
 
-#: cli/import.php:121
+#: cli/import-mise.php:109
 msgid "File dei prezzi non trovato"
-msgstr ""
+msgstr "Prices file not found"
 
-#: cli/import.php:125
+#: cli/import-mise.php:113
 msgid "Impossibile aprire il file dei prezzi"
-msgstr ""
+msgstr "Unable to open the prices file"
 
-#: cli/import.php:153
+#: cli/import-mise.php:141
 #, php-format
-msgid ""
-"Errore:\n"
-"\t%s.\n"
-msgstr ""
+msgid "Errore: %s."
+msgstr "Error: %s."
 
 #: includes/functions.php:40
 msgid "Entra in contatto"
@@ -296,3 +305,6 @@ msgstr "Get in touch with %s"
 #, php-format
 msgid "Informazioni legali su %s"
 msgstr "Legal information on %s"
+
+#~ msgid "Geolocalizzazione fallita"
+#~ msgstr "I couldn’t locate yourself"

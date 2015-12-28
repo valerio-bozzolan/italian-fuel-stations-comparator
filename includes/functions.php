@@ -44,6 +44,9 @@ function legal_notes($url, $license, $project) {
 	return HTML::a($url, $license, sprintf( _("Informazioni legali su %s"), $project ) );
 }
 
+/**
+ * Material Design Icon
+ */
 function mdi_icon($uid, $class = 'left') {
 	return "<i class=\"material-icons $class\">$uid</i>";
 }
@@ -57,4 +60,21 @@ function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l
 	bindtextdomain($domain, $folder);
 	textdomain($domain);
 	bind_textdomain_codeset($domain, $encoding);
+}
+
+function last_price_date($format = 'd/m/Y H:i') {
+	global $db;
+
+	static $lastdate = null;
+
+	if($lastdate === null) {
+		$lastdate = $db->getValue(
+			"SELECT MAX(price_date) as lastdate FROM {$db->getTable('price')}",
+			'lastdate'
+		);
+	}
+
+	$d = DateTime::createFromFormat('Y-m-d H:i:s', $lastdate);
+
+	return $d->format($format);
 }

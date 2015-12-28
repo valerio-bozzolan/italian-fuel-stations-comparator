@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fuel.reyboz.it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-21 12:37+0100\n"
+"POT-Creation-Date: 2015-12-28 23:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,106 +174,113 @@ msgstr ""
 msgid "Torna a %s"
 msgstr ""
 
-#: index.php:48
+#: index.php:53
 #, php-format
 msgid "Confronta velocemente i prezzi fra %s stazioni di rifornimento."
 msgstr ""
 
-#: index.php:72
-msgid "Risultati ricerca"
+#: index.php:64
+#, php-format
+msgid "Ultimo aggiornamento: %s."
 msgstr ""
 
-#: index.php:78
-msgid "La tua segnalazione è preziosa. Per ora però sara ignorata <_<"
-msgstr ""
-
-#: index.php:79
-msgid "Aggiunta ai preferiti... Se funzionassero <_<"
-msgstr ""
-
-#: index.php:80
-msgid "Geolocalizzazione fallita"
+#: index.php:70
+msgid "Cerca un indirizzo"
 msgstr ""
 
 #: index.php:81
-msgid "Trova la tua zona, zomma!"
-msgstr ""
-
-#: index.php:82
-msgid "Vedo molte stazioni. Fai zoom per scoprirle"
-msgstr ""
-
-#: index.php:83
-msgid "Nessuna pompa di benzina in questa zona"
-msgstr ""
-
-#: index.php:84
-msgid "Fai zoom! Qui ci sono {n} stazioni"
-msgstr ""
-
-#: index.php:85
-msgid "Litri ogni {euro} € per {station}"
-msgstr ""
-
-#: index.php:86
-msgid "Preferiti"
+msgid "Risultati ricerca"
 msgstr ""
 
 #: index.php:87
-msgid "Segnala errore"
+msgid "La tua segnalazione è preziosa. Per ora però sara ignorata <_<"
 msgstr ""
 
 #: index.php:88
+msgid "Aggiunta ai preferiti... Se funzionassero <_<"
+msgstr ""
+
+#: index.php:89
+msgid "Posizione non disponibile."
+msgstr ""
+
+#: index.php:90
+msgid "Trova la tua zona, zomma!"
+msgstr ""
+
+#: index.php:91
+msgid "Vedo molte stazioni. Fai zoom per scoprirle"
+msgstr ""
+
+#: index.php:92
+msgid "Nessuna pompa di benzina in questa zona"
+msgstr ""
+
+#: index.php:93
+msgid "Fai zoom! Qui ci sono {n} stazioni"
+msgstr ""
+
+#: index.php:94
+msgid "Litri ogni {euro} € per {station}"
+msgstr ""
+
+#: index.php:95
+msgid "Preferiti"
+msgstr ""
+
+#: index.php:96
+msgid "Segnala errore"
+msgstr ""
+
+#: index.php:97
 msgid "Nessun indirizzo trovato. Riprova con parole più semplici."
 msgstr ""
 
-#: load-post.php:55
+#: load-post.php:54
 msgid "Compara carburanti"
 msgstr ""
 
-#: load-post.php:56
+#: load-post.php:55
 msgid "Confronta i prezzi dei carburanti"
 msgstr ""
 
-#: load-post.php:112
-msgid "La mappa"
+#: load-post.php:111
+msgid "Mappa"
 msgstr ""
 
-#: load-post.php:117
+#: load-post.php:116
 msgid "Informazioni sulla piattaforma"
 msgstr ""
 
-#: cli/import-functions.php:76
+#: cli/import-mise-functions.php:36
 #, php-format
 msgid "La stazione miseID %d doveva essere già stata inserita"
 msgstr ""
 
-#: cli/import.php:73
+#: cli/import-mise.php:61
 #, php-format
 msgid "Utilizzo: %s FILE_STAZIONI.csv PREZZI_ALLE_8.csv"
 msgstr ""
 
-#: cli/import.php:84
+#: cli/import-mise.php:72
 msgid "File delle stazioni non trovato"
 msgstr ""
 
-#: cli/import.php:88
+#: cli/import-mise.php:76
 msgid "Impossibile aprire il file delle stazioni"
 msgstr ""
 
-#: cli/import.php:121
+#: cli/import-mise.php:109
 msgid "File dei prezzi non trovato"
 msgstr ""
 
-#: cli/import.php:125
+#: cli/import-mise.php:113
 msgid "Impossibile aprire il file dei prezzi"
 msgstr ""
 
-#: cli/import.php:153
+#: cli/import-mise.php:141
 #, php-format
-msgid ""
-"Errore:\n"
-"\t%s.\n"
+msgid "Errore: %s."
 msgstr ""
 
 #: includes/functions.php:40

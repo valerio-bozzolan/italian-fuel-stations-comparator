@@ -119,9 +119,9 @@ try {
 
 	while( $data = fgetcsv($handle, 255, ';') ) {
 		$db->insertRow('price', [
-			new DBCol('price_value', (float) $data[2], 'f'),
-			new DBCol('price_self',  (int) $data[3],   'd'),
-			new DBCol('price_date',  $data[4],         's'),
+			new DBCol('price_value', (float) $data[2],          'f'),
+			new DBCol('price_self',  (int) $data[3],            'd'),
+			new DBCol('price_date',  itdate2datetime($data[4]), 's'),
 			new DBCol(
 				'fuel_ID',
 				get_fuel_ID(
@@ -138,8 +138,9 @@ try {
 
 } catch(Exception $e) {
 	printf(
-		_("Errore:\n\t%s.\n"),
+		_("Errore: %s."),
 		$e->getMessage()
 	);
+	echo "\n";
 	exit( $e->getCode() );
 }

@@ -12,7 +12,7 @@ Use the http://fuel.reyboz.it online mirror. It has data updated on a daily basi
 Heroes and original technologies in the [/about.php](http://fuel.reyboz.it/about.php) page of the online mirror.
 
 ## Hacking
-Go in your `www` folder and clone the source code using Bazaar:
+Go in your `www` folder and clone the source code using GNU Bazaar:
 
     bzr branch lp:it-fuel-stations-comparator
 
@@ -52,6 +52,13 @@ Put a similar line in your cronjob:
 Push in Launchpad:
 
 https://code.launchpad.net/it-fuel-stations-comparator
+
+## Translations
+Translations are easily made using GNU Gettext. See the `l10n/` folder structure. Use something as Poedit to edit existing `.po` files or to create a new one from the `.pot`.
+
+Remember to run the `cli/localize.sh` script before editing a `.po` file. Also run it *twice* when you finished.
+
+The site language switcher is in the `load-post.php`. That part sucks but it works.
 
 ## License
 This is a **Free** as in **Freedom** project. It comes with ABSOLUTELY NO WARRANTY. You are welcome to redistribute it under the terms of the **GNU Affero General Public License v3+**.

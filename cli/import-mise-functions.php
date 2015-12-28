@@ -222,3 +222,13 @@ function get_provincia_ID($provincia_uid, $provincia_name) {
 
 	return $provincie[ $provincia->provincia_uid ] = $provincia->provincia_ID;
 }
+
+/**
+ * 11/12/2015 20:30 => 2015-12-11 20:30:00
+ *
+ * @return string MySQL/MariaDB datetime
+ */
+function itdate2datetime($time) {
+	$dateTime = DateTime::createFromFormat('d/m/Y H:i:s', $time);
+	return $dateTime->format('Y-m-d H:i:s');
+}
