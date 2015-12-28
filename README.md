@@ -27,6 +27,8 @@ Import in MySQL/MariaDB the `database-schema.sql` from the `installation` folder
 
 Also in the `installation` folder copy the `load-sample.php` in the root folder as `load.php` and fill with your MySQL/MariaDB credentials.
 
+Remember to run the `cli/localize.sh` twice to enable translations.
+
 ## Import data from MISE
 Please download data from the Italian [Ministero dello Sviluppo Economico](http://www.sviluppoeconomico.gov.it/index.php/it/open-data/elenco-dataset/2032336-carburanti-prezzi-praticati-e-anagrafica-degli-impianti):
  * http://www.sviluppoeconomico.gov.it/images/exportCSV/prezzo_alle_8.csv
