@@ -19,7 +19,9 @@
 
 require '../load.php';
 
-$results = array();
+expect('db');
+
+$results = [];
 
 if( isset( $_GET['lat_n'], $_GET['lat_s'], $_GET['lng_e'], $_GET['lng_w'] ) ) {
 

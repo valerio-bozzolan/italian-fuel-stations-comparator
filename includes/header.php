@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function get_header($uid, $args = array()) {
+function get_header($uid, $args = []) {
+	expect('menu');
+
 	$args = merge_args_defaults($args, [
 		'theme' => 'default'
 	] );
@@ -38,7 +40,7 @@ function get_header($uid, $args = array()) {
 <head>
 	<title><?php echo SITE_NAME ?> - <?php echo get_menu_entry($uid)->name ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="icon" type="image/jpeg" href="<?php echo URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('theme-header') ?>
+	<link rel="icon" type="image/jpeg" href="<?php echo URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('header') ?>
 
 </head>
 <!--

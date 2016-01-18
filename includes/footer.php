@@ -18,7 +18,9 @@
  */
 
 function get_footer($page = null, $args = null) {
-	load_module('theme-footer');
+	expect('menu');
+
+	load_module('footer');
 ?>
 </body>
 </html><?php

@@ -23,6 +23,8 @@
 
 require 'load.php';
 
+expect('db');
+
 enqueue_css('leaflet');
 enqueue_css('my-fuel-map');
 enqueue_js('jquery.ui');

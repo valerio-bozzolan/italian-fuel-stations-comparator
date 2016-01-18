@@ -18,6 +18,7 @@
  */
 
 // Customizing Boz PHP - Another PHP framework
+expect('menu');
 
 define('INCLUDES', 'includes');
 define('IMAGES', 'images');
