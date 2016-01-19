@@ -32,6 +32,8 @@
 require __DIR__ . '/../load.php';
 require __DIR__ . '/import-mise-functions.php';
 
+expect('db');
+
 //$db->query("TRUNCATE {$db->getTable('rel_provincia_comune')}");
 //$db->query("TRUNCATE {$db->getTable('provincia')}");
 //$db->query("TRUNCATE {$db->getTable('comune')}");
