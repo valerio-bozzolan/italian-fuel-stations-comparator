@@ -18,7 +18,8 @@
  */
 
 /**
- * It do what it's written.
+ * It does what it's written.
+ *
  * @param float $latitude1
  * @param float $longitude1
  * @param float $latitude2
@@ -62,14 +63,22 @@ function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l
 	bind_textdomain_codeset($domain, $encoding);
 }
 
+/**
+ * Get the last update price.
+ *
+ * Has a cache.
+ *
+ * @param string $format DateTime format.
+ * @return string Formatted date.
+ */
 function last_price_date($format = 'd/m/Y H:i') {
-	global $db;
+	expect('db');
 
 	static $lastdate = null;
 
 	if($lastdate === null) {
-		$lastdate = $db->getValue(
-			"SELECT MAX(price_date) as lastdate FROM {$db->getTable('price')}",
+		$lastdate = $GLOBALS['db']->getValue(
+			"SELECT MAX(price_date) AS lastdate FROM {$GLOBALS['db']->getTable('price')}",
 			'lastdate'
 		);
 	}

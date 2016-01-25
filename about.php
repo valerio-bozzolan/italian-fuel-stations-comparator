@@ -228,8 +228,13 @@ get_header('about');
 			</tbody>
 		</table>
 	</div>
-	<div class="section">
-		<p><?php echo HTML::a(URL, mdi_icon('location_on') . _("Torna alla mappa"), _("Torna a %s", SITE_NAME), 'btn red waves-effect waves-white' ) ?></p>
+	<div class="row">
+		<div class="col s12 m6">
+			<p><?php echo HTML::a(URL, mdi_icon('location_on') . _("Torna alla mappa"), _("Torna a %s", SITE_NAME), 'btn orange waves-effect waves-white' ) ?></p>
+		</div>
+		<div class="col s12 m6">
+			<p><?php echo HTML::a('https://launchpad.net/it-fuel-stations-comparator', mdi_icon('share') . _("Clona il codice"), _("Clona"), 'btn red waves-effect waves-white' ) ?></p>
+		</div>
 	</div>
 </div>
 <?php get_footer();

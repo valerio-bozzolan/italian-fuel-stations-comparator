@@ -39,18 +39,8 @@ $last_price_text    = last_price_date();
 ?>
 <div id="overworld">
 	<div class="card-panel">
-		<h1 class="hide-on-small-only"><?php echo HTML::a(
-			URL,
-			SITE_NAME,
-			SITE_DESCRIPTION,
-			'orange-text'
-		) ?></h1>
-		<h5 class="hide-on-med-and-up"><?php echo HTML::a(
-			URL,
-			SITE_NAME,
-			SITE_DESCRIPTION,
-			'orange-text'
-		) ?></h5>
+		<h1 class="hide-on-small-only"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h1>
+		<h5 class="hide-on-med-and-up"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h5>
 		<p><?php printf(
 			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
 			HTML::tag(
@@ -62,6 +52,12 @@ $last_price_text    = last_price_date();
 				HTML::property('class', 'station-counter')
 			)
 		) ?></p>
+		<div class="divider"></div>
+		<div class="section">
+			<a class="btn blue waves-effect waves-white" href="<?php echo URL ?>/about.php" title="<?php _esc_attr( _("Maggiori informazioni") ) ?>"><?php echo _("Maggiori info") . mdi_icon('info', 'right') ?></a>
+			<button class="btn orange close-overworld waves-effect waves-white"><?php echo _("Socchiudi scheda") . mdi_icon('close', 'right') ?></button>
+		</div>
+		<div class="divider"></div>
 		<p class="last-update"><?php printf(
 			_("Ultimo aggiornamento: %s."),
 			"<time datetime=\"$last_price_rfc3339\">$last_price_text</time>"
@@ -84,7 +80,8 @@ $last_price_text    = last_price_date();
 		<ol></ol>
 	</div>
 </div>
-<script type="text/javascript">
+<script>
+// Localized using GNU Gettext. Help translate using Poedit: <?php echo URL ?>/l10n/
 var L10N = {
 	errorSent: "<?php _esc_attr( _("La tua segnalazione è preziosa. Per ora però sara ignorata <_<") ) ?>",
 	addedToFavorites: "<?php _esc_attr( _("Aggiunta ai preferiti... Se funzionassero <_<") ) ?>",

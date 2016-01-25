@@ -77,9 +77,9 @@ $(document).ready(function() {
 
 	Overworld.$action = $("#overworld-buttons");
 	Overworld.$el	  = $("#overworld"); 
-	Overworld.$action.hide().click(function() {
-		Overworld.show();
-	});
+	Overworld.$action.hide().click( Overworld.show );
+
+	$(".close-overworld").click( Overworld.hide );
 
 	$("form").submit(function(event) {
 		suggest_nominatim_addresses(
@@ -103,9 +103,7 @@ $(document).ready(function() {
 		return true;
 	});
 
-	map.on("popupopen", function() {
-		Overworld.hide();
-	});
+	map.on("popupopen", Overworld.hide );
 
 	fitDocument();
 
