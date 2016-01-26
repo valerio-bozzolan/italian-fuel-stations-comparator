@@ -52,16 +52,16 @@ $last_price_text    = last_price_date();
 				HTML::property('class', 'station-counter')
 			)
 		) ?></p>
+		<p class="last-update"><?php printf(
+			_("Ultimo aggiornamento: %s."),
+			"<time datetime=\"$last_price_rfc3339\">$last_price_text</time>"
+		) ?></p>
 		<div class="divider"></div>
 		<div class="section">
 			<a class="btn blue waves-effect waves-white" href="<?php echo URL ?>/about.php" title="<?php _esc_attr( _("Maggiori informazioni") ) ?>"><?php echo _("Maggiori info") . mdi_icon('info', 'right') ?></a>
 			<button class="btn orange close-overworld waves-effect waves-white"><?php echo _("Socchiudi scheda") . mdi_icon('close', 'right') ?></button>
 		</div>
 		<div class="divider"></div>
-		<p class="last-update"><?php printf(
-			_("Ultimo aggiornamento: %s."),
-			"<time datetime=\"$last_price_rfc3339\">$last_price_text</time>"
-		) ?></p>
 		<form action="#" method="get">
 			<div class="input-field">
 				<i class="material-icons prefix">navigation</i>
