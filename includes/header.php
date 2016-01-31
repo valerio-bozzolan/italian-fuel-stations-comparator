@@ -40,6 +40,10 @@ function get_header($uid, $args = []) {
 <head>
 	<title><?php echo SITE_NAME ?> - <?php echo get_menu_entry($uid)->name ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta property="og:title" content="<?php echo get_menu_entry($uid)->name ?>" />
+	<meta property="og:url" content="<?php echo get_menu_entry($uid)->url ?>" />
+	<meta property="og:image" content="<?php echo URL . _ . IMAGES . '/fuel-300px.png' ?>" />
+	<meta property="og:type" content="website" />
 	<link rel="icon" type="image/jpeg" href="<?php echo URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('header') ?>
 
 </head>

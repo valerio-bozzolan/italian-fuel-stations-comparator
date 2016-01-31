@@ -106,14 +106,6 @@ register_css(
 );
 
 add_menu_entries([
-	new MenuEntry(
-			'map',
-			URL,
-			_("Mappa")
-	),
-	new MenuEntry(
-			'about',
-			URL . '/about.php',
-			_("Informazioni sulla piattaforma")
-	)
+	new MenuEntry('map',   URL,                _("Mappa carburanti") ),
+	new MenuEntry('about', URL . '/about.php', _("Informazioni sulla piattaforma") )
 ]);
