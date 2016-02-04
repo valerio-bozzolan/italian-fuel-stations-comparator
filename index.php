@@ -44,7 +44,7 @@ $last_price_text    = last_price_date();
 			HTML::tag(
 				'b',
 				query_value(
-					"SELECT COUNT(*) as count FROM {$GLOBALS[T]('station')}",
+					"SELECT COUNT(*) as count FROM {$T('station')}",
 					'count'
 				),
 				HTML::property('class', 'station-counter')

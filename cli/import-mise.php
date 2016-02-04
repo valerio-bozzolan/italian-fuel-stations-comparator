@@ -32,26 +32,26 @@
 require __DIR__ . '/../load.php';
 require __DIR__ . '/import-mise-functions.php';
 
-//query("TRUNCATE {$GLOBALS[T]('rel_provincia_comune')}");
-//query("TRUNCATE {$GLOBALS[T]('provincia')}");
-//query("TRUNCATE {$GLOBALS[T]('comune')}");
-//query("TRUNCATE {$GLOBALS[T]('station')}");
-//query("TRUNCATE {$GLOBALS[T]('stationowner')}");
-//query("TRUNCATE {$GLOBALS[T]('fuelprovider')}");
-//query("TRUNCATE {$GLOBALS[T]('fuel')}");
-query("TRUNCATE {$GLOBALS[T]('price')}");
+//query("TRUNCATE {$T('rel_provincia_comune')}");
+//query("TRUNCATE {$T('provincia')}");
+//query("TRUNCATE {$T('comune')}");
+//query("TRUNCATE {$T('station')}");
+//query("TRUNCATE {$T('stationowner')}");
+//query("TRUNCATE {$T('fuelprovider')}");
+//query("TRUNCATE {$T('fuel')}");
+query("TRUNCATE {$T('price')}");
 
-$comuni        = query_results("SELECT comune_ID, comune_uid FROM {$GLOBALS[T]('comune')}", 'Comune');
+$comuni        = query_results("SELECT comune_ID, comune_uid FROM {$T('comune')}", 'Comune');
 $comuni        = indexed_array($comuni, 'comune_uid', 'comune_ID');
-$provincie     = query_results("SELECT provincia_ID, provincia_uid FROM {$GLOBALS[T]('provincia')}", 'Provincia');
+$provincie     = query_results("SELECT provincia_ID, provincia_uid FROM {$T('provincia')}", 'Provincia');
 $provincie     = indexed_array($provincie, 'provincia_uid', 'provincia_ID');
-$fuels         = query_results("SELECT fuel_ID, fuel_uid FROM {$GLOBALS[T]('fuel')}", 'Fuel');
+$fuels         = query_results("SELECT fuel_ID, fuel_uid FROM {$T('fuel')}", 'Fuel');
 $fuels         = indexed_array($fuels, 'fuel_uid', 'fuel_ID');
-$stations      = query_results("SELECT station_ID, station_miseID FROM {$GLOBALS[T]('station')}", 'Station');
+$stations      = query_results("SELECT station_ID, station_miseID FROM {$T('station')}", 'Station');
 $stations      = indexed_array($stations, 'station_miseID', 'station_ID');
-$stationowners = query_results("SELECT stationowner_ID, stationowner_uid FROM {$GLOBALS[T]('stationowner')}", 'Stationowner');
+$stationowners = query_results("SELECT stationowner_ID, stationowner_uid FROM {$T('stationowner')}", 'Stationowner');
 $stationowners = indexed_array($stationowners, 'stationowner_uid', 'stationowner_ID');
-$fuelproviders = query_results("SELECT fuelprovider_ID, fuelprovider_uid FROM {$GLOBALS[T]('fuelprovider')}", 'Fuelprovider');
+$fuelproviders = query_results("SELECT fuelprovider_ID, fuelprovider_uid FROM {$T('fuelprovider')}", 'Fuelprovider');
 $fuelproviders = indexed_array($fuelproviders, 'fuelprovider_uid', 'fuelprovider_ID');
 
 try {

@@ -32,7 +32,7 @@ if( isset( $_GET['lat_n'], $_GET['lat_s'], $_GET['lng_e'], $_GET['lng_w'] ) ) {
 		sprintf(
 			"SELECT station.station_ID, station.station_lat, station.station_lon, " .
 			"stationowner.stationowner_uid, stationowner.stationowner_name " .
-			"FROM {$GLOBALS[JOIN]('station', 'stationowner')} " .
+			"FROM {$JOIN('station', 'stationowner')} " .
 			"WHERE station.station_lat BETWEEN %f AND %f " .
 			"AND station.station_lon BETWEEN %f AND %f " .
 			"AND station.stationowner_ID = stationowner.stationowner_ID",
@@ -55,7 +55,7 @@ if( isset( $_GET['lat_n'], $_GET['lat_s'], $_GET['lng_e'], $_GET['lng_w'] ) ) {
 				sprintf(
 					"SELECT DISTINCT price.price_value, price.price_self, " .
 					"fuel.fuel_uid, fuel.fuel_name " .
-					"FROM {$GLOBALS[JOIN]('price', 'fuel')} " .
+					"FROM {$JOIN('price', 'fuel')} " .
 					"WHERE price.station_ID = %d " .
 					"AND price.fuel_ID = fuel.fuel_ID " .
 					"ORDER BY price.price_value",
