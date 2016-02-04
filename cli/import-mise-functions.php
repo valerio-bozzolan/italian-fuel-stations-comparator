@@ -26,7 +26,7 @@ function indexed_array($rows, $property_index, $property_return) {
 }
 
 function get_station_ID($station_miseID, $station_name = null, $station_type = null, $station_address = null, $station_lat = null, $station_lon = null, $comune_ID = null, $stationowner_ID = null, $fuelprovider_ID = null) {
-	global $db, $stations;
+	global $stations;
 
 	if( isset( $stations[ $station_miseID ] ) ) {
 		return $stations[ $station_miseID ];
@@ -46,7 +46,7 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 		throw new Exception( sprintf( "Tipo di stazione non prevista: %s", esc_html( $station_type ) ) );
 	}
 
-	$db->insertRow('station', [
+	insert_row('station', [
 		new DBCol('station_miseID',  $station_miseID,  'd'),
 		new DBCol('station_name',    $station_name,    's'),
 		new DBCol('station_type',    $station_type,    's'),
@@ -58,12 +58,12 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 		new DBCol('fuelprovider_ID', $fuelprovider_ID, 'd')
 	] );
 
-	$station = $db->getRow(
+	$station = query_row(
 		sprintf(
 			"SELECT station_ID, station_miseID " .
-			"FROM {$db->getTable('station')} " .
+			"FROM {$GLOBALS[T]('station')} " .
 			"WHERE station_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Station'
 	);
@@ -72,28 +72,28 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 }
 
 function get_comune_ID($comune_uid, $comune_name, $provincia_name) {
-	global $db, $comuni;
+	global $comuni;
 
 	if( isset( $comuni[ $comune_uid ] ) ) {
 		return $comuni[ $comune_uid ];
 	}
 
-	$db->insertRow('comune', [
+	insert_row('comune', [
 		new DBCol('comune_uid',  $comune_uid,  's'),
 		new DBCol('comune_name', $comune_name, 's')
 	] );
 
-	$comune = $db->getRow(
+	$comune = query_row(
 		sprintf(
 			"SELECT comune_ID, comune_uid " .
-			"FROM {$db->getTable('comune')} " .
+			"FROM {$GLOBALS[T]('comune')} " .
 			"WHERE comune_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Comune'
 	);
 
-	$db->insertRow('rel_provincia_comune', [
+	insert_row('rel_provincia_comune', [
 		new DBCol(
 			'provincia_ID',
 			get_provincia_ID(
@@ -109,23 +109,23 @@ function get_comune_ID($comune_uid, $comune_name, $provincia_name) {
 }
 
 function get_fuelprovider_ID($fuelprovider_uid, $fuelprovider_name) {
-	global $db, $fuelproviders;
+	global $fuelproviders;
 
 	if( isset( $fuelproviders[ $fuelprovider_uid ] ) ) {
 		return $fuelproviders[ $fuelprovider_uid ];
 	}
 
-	$db->insertRow('fuelprovider', [
+	insert_row('fuelprovider', [
 		new DBCol('fuelprovider_uid',  $fuelprovider_uid,  's'),
 		new DBCol('fuelprovider_name', $fuelprovider_name, 's')
 	] );
 
-	$fuelprovider = $db->getRow(
+	$fuelprovider = query_row(
 		sprintf(
 			"SELECT fuelprovider_ID, fuelprovider_uid " .
-			"FROM {$db->getTable('fuelprovider')} " .
+			"FROM {$GLOBALS[T]('fuelprovider')} " .
 			"WHERE fuelprovider_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Fuelprovider'
 	);
@@ -134,7 +134,7 @@ function get_fuelprovider_ID($fuelprovider_uid, $fuelprovider_name) {
 }
 
 function get_stationowner_ID($stationowner_uid, $stationowner_name) {
-	global $db, $stationowners;
+	global $stationowners;
 
 	if( isset( $stationowners[ $stationowner_uid ] ) ) {
 		return $stationowners[ $stationowner_uid ];
@@ -154,18 +154,18 @@ function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 		return $stationowners[ $stationowner_uid ];
 	}
 
-	$db->insertRow('stationowner', [
+	insert_row('stationowner', [
 		new DBCol('stationowner_uid',  $stationowner_uid,  's'),
 		new DBCol('stationowner_name', $stationowner_name, 's'),
 		new DBCol('stationowner_note', $stationowner_note, 'snull')
 	] );
 
-	$stationowner = $db->getRow(
+	$stationowner = query_row(
 		sprintf(
 			"SELECT stationowner_ID, stationowner_uid " .
-			"FROM {$db->getTable('stationowner')} " .
+			"FROM {$GLOBALS[T]('stationowner')} " .
 			"WHERE stationowner_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Stationowner'
 	);
@@ -174,23 +174,23 @@ function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 }
 
 function get_fuel_ID($fuel_uid, $fuel_name) {
-	global $db, $fuels;
+	global $fuels;
 
 	if( isset( $fuels[ $fuel_uid ] ) ) {
 		return $fuels[ $fuel_uid ];
 	}
 
-	$db->insertRow('fuel', [
+	insert_row('fuel', [
 		new DBCol('fuel_uid',  $fuel_uid,  's'),
 		new DBCol('fuel_name', $fuel_name, 's')
 	] );
 
-	$fuel = $db->getRow(
+	$fuel = query_row(
 		sprintf(
 			"SELECT fuel_ID, fuel_uid " .
-			"FROM {$db->getTable('fuel')} " .
+			"FROM {$GLOBALS[T]('fuel')} " .
 			"WHERE fuel_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Fuel'
 	);
@@ -199,23 +199,23 @@ function get_fuel_ID($fuel_uid, $fuel_name) {
 }
 
 function get_provincia_ID($provincia_uid, $provincia_name) {
-	global $db, $provincie;
+	global $provincie;
 
 	if( isset( $provincie[ $provincia_uid ] ) ) {
 		return $provincie[ $provincia_uid ];
 	}
 
-	$db->insertRow('provincia', [
+	insert_row('provincia', [
 		new DBCol('provincia_uid',  $provincia_uid,  's'),
 		new DBCol('provincia_name', $provincia_name, 's')
 	] );
 
-	$provincia = $db->getRow(
+	$provincia = query_row(
 		sprintf(
 			"SELECT provincia_ID, provincia_uid " .
-			"FROM {$db->getTable('provincia')} " .
+			"FROM {$GLOBALS[T]('provincia')} " .
 			"WHERE provincia_ID = %d",
-			$db->getLastInsertedID()
+			last_inserted_ID()
 		),
 		'Provincia'
 	);

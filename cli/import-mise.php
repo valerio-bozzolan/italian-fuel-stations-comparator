@@ -32,28 +32,26 @@
 require __DIR__ . '/../load.php';
 require __DIR__ . '/import-mise-functions.php';
 
-expect('db');
+//query("TRUNCATE {$GLOBALS[T]('rel_provincia_comune')}");
+//query("TRUNCATE {$GLOBALS[T]('provincia')}");
+//query("TRUNCATE {$GLOBALS[T]('comune')}");
+//query("TRUNCATE {$GLOBALS[T]('station')}");
+//query("TRUNCATE {$GLOBALS[T]('stationowner')}");
+//query("TRUNCATE {$GLOBALS[T]('fuelprovider')}");
+//query("TRUNCATE {$GLOBALS[T]('fuel')}");
+query("TRUNCATE {$GLOBALS[T]('price')}");
 
-//$db->query("TRUNCATE {$db->getTable('rel_provincia_comune')}");
-//$db->query("TRUNCATE {$db->getTable('provincia')}");
-//$db->query("TRUNCATE {$db->getTable('comune')}");
-//$db->query("TRUNCATE {$db->getTable('station')}");
-//$db->query("TRUNCATE {$db->getTable('stationowner')}");
-//$db->query("TRUNCATE {$db->getTable('fuelprovider')}");
-//$db->query("TRUNCATE {$db->getTable('fuel')}");
-$db->query("TRUNCATE {$db->getTable('price')}");
-
-$comuni        = $db->getResults("SELECT comune_ID, comune_uid FROM {$db->getTable('comune')}", 'Comune');
+$comuni        = query_results("SELECT comune_ID, comune_uid FROM {$GLOBALS[T]('comune')}", 'Comune');
 $comuni        = indexed_array($comuni, 'comune_uid', 'comune_ID');
-$provincie     = $db->getResults("SELECT provincia_ID, provincia_uid FROM {$db->getTable('provincia')}", 'Provincia');
+$provincie     = query_results("SELECT provincia_ID, provincia_uid FROM {$GLOBALS[T]('provincia')}", 'Provincia');
 $provincie     = indexed_array($provincie, 'provincia_uid', 'provincia_ID');
-$fuels         = $db->getResults("SELECT fuel_ID, fuel_uid FROM {$db->getTable('fuel')}", 'Fuel');
+$fuels         = query_results("SELECT fuel_ID, fuel_uid FROM {$GLOBALS[T]('fuel')}", 'Fuel');
 $fuels         = indexed_array($fuels, 'fuel_uid', 'fuel_ID');
-$stations      = $db->getResults("SELECT station_ID, station_miseID FROM {$db->getTable('station')}", 'Station');
+$stations      = query_results("SELECT station_ID, station_miseID FROM {$GLOBALS[T]('station')}", 'Station');
 $stations      = indexed_array($stations, 'station_miseID', 'station_ID');
-$stationowners = $db->getResults("SELECT stationowner_ID, stationowner_uid FROM {$db->getTable('stationowner')}", 'Stationowner');
+$stationowners = query_results("SELECT stationowner_ID, stationowner_uid FROM {$GLOBALS[T]('stationowner')}", 'Stationowner');
 $stationowners = indexed_array($stationowners, 'stationowner_uid', 'stationowner_ID');
-$fuelproviders = $db->getResults("SELECT fuelprovider_ID, fuelprovider_uid FROM {$db->getTable('fuelprovider')}", 'Fuelprovider');
+$fuelproviders = query_results("SELECT fuelprovider_ID, fuelprovider_uid FROM {$GLOBALS[T]('fuelprovider')}", 'Fuelprovider');
 $fuelproviders = indexed_array($fuelproviders, 'fuelprovider_uid', 'fuelprovider_ID');
 
 try {
@@ -120,7 +118,7 @@ try {
 	fgetcsv($handle);
 
 	while( $data = fgetcsv($handle, 255, ';') ) {
-		$db->insertRow('price', [
+		insert_row('price', [
 			new DBCol('price_value', (float) $data[2],          'f'),
 			new DBCol('price_self',  (int) $data[3],            'd'),
 			new DBCol('price_date',  itdate2datetime($data[4]), 's'),

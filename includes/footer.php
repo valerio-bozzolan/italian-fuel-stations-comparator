@@ -17,9 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function get_footer($page = null, $args = null) {
-	expect('menu');
-
+function get_footer() {
 	load_module('footer');
 ?>
 </body>

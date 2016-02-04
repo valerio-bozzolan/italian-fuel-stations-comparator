@@ -72,13 +72,11 @@ function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l
  * @return string Formatted date.
  */
 function last_price_date($format = 'd/m/Y H:i') {
-	expect('db');
-
 	static $lastdate = null;
 
 	if($lastdate === null) {
-		$lastdate = $GLOBALS['db']->getValue(
-			"SELECT MAX(price_date) AS lastdate FROM {$GLOBALS['db']->getTable('price')}",
+		$lastdate = query_value(
+			"SELECT MAX(price_date) AS lastdate FROM {$GLOBALS[T]('price')}",
 			'lastdate'
 		);
 	}

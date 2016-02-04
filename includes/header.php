@@ -18,8 +18,6 @@
  */
 
 function get_header($uid, $args = []) {
-	expect('menu');
-
 	$args = merge_args_defaults($args, [
 		'theme' => 'default'
 	] );

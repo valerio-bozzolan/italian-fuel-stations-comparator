@@ -23,8 +23,6 @@
 
 require 'load.php';
 
-expect('db');
-
 enqueue_css('leaflet');
 enqueue_css('my-fuel-map');
 enqueue_js('jquery.ui');
@@ -45,8 +43,8 @@ $last_price_text    = last_price_date();
 			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
 			HTML::tag(
 				'b',
-				$db->getValue(
-					"SELECT COUNT(*) as count FROM {$db->getTable('station')}",
+				query_value(
+					"SELECT COUNT(*) as count FROM {$GLOBALS[T]('station')}",
 					'count'
 				),
 				HTML::property('class', 'station-counter')
