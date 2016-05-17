@@ -1,21 +1,20 @@
 <?php
-/*
- * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
- * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+# Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
+# Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 require 'load.php';
 
 get_header('about');
@@ -23,8 +22,8 @@ get_header('about');
 <div class="container">
 	<?php print_title('about') ?>
 	<div class="section">
-		<h2><?php _e("Il Team «Il Cloud non esiste»") ?></h2>
-		<p class="flow-text"><?php _e("«Il Cloud non esiste» è il team che in 24 ore ha realizzato il progetto vincitore dell'Hackaton di Facile.it 2015 presentando un comparatore di prezzi dei carburanti.") ?></p>
+		<h2><?php _e("Il team “Il Cloud non esiste”") ?></h2>
+		<p class="flow-text"><?php _e("“Il Cloud non esiste” è il team che in 24 ore ha realizzato il progetto vincitore dell'Hackaton di Facile.it 2015 presentando un comparatore di prezzi dei carburanti.") ?></p>
 		<div class="row">
 			<div class="col s12 m6">
 				<p><?php echo HTML::a(
@@ -196,9 +195,9 @@ get_header('about');
 					<td><?php echo legal_notes('https://github.com/google/material-design-icons', "CC By", "Material Design Icons") ?></td>
 				</tr>
 				<tr>
-					<td>MySQL</td>
-					<td>Relational database management system</td>
-					<td><?php echo legal_notes('https://www.mysql.com/products/community/', "GNU GPL", "MySQL") ?></td>
+					<td>MariaDB</td>
+					<td><?php _e("Sistema di gestione di database relazionali (fork di MySQL)") ?></td>
+					<td><?php echo legal_notes('https://mariadb.org/about/', "GNU GPL", "MariaDB") ?></td>
 				</tr>
 				<tr>
 					<td>Open Data MISE</td>
