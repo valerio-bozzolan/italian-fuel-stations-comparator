@@ -1,21 +1,19 @@
 <?php
-/*
- * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
- * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+# Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
+# Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * The map
@@ -25,7 +23,11 @@ require 'load.php';
 
 enqueue_css('leaflet');
 enqueue_css('my-fuel-map');
-enqueue_js('jquery.ui');
+
+foreach($JQUERY_UI_PARTS as $part) {
+	enqueue_js("jquery.ui.$part");
+}
+
 enqueue_js('leaflet');
 enqueue_js('leaflet.bouncemarker');
 enqueue_js('my-fuel-map');
@@ -39,6 +41,9 @@ $last_price_text    = last_price_date();
 	<div class="card-panel">
 		<h1 class="hide-on-small-only"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h1>
 		<h5 class="hide-on-med-and-up"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h5>
+		<noscript>
+			<p><?php _e("È necessario abilitare JavaScript. Tranquillo, viene utilizzato escusivamente software libero.") ?></p>
+		</noscript>
 		<p><?php printf(
 			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
 			HTML::tag(

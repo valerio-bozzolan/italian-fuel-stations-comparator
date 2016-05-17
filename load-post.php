@@ -1,21 +1,19 @@
 <?php
-/*
- * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
- * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+# Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
+# Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Customizing Boz PHP - Another PHP framework
 expect('menu');
@@ -23,8 +21,19 @@ expect('menu');
 define('INCLUDES', 'includes');
 define('IMAGES', 'images');
 define('MATERIALIZE', INCLUDES . _ . 'materialize');
-define('JQUERY', INCLUDES . _ . 'jquery');
 define('LEAFLET', INCLUDES . _ . 'leaflet');
+
+$JQUERY_UI_PARTS = [
+	'core',
+	'widget',
+	'mouse',
+	'position',
+	'autocomplete',
+	'button',
+	'dialog',
+	'effect',
+	'effect-drop'
+];
 
 // Load functions
 require ABSPATH . _ . INCLUDES . '/functions.php';
@@ -55,54 +64,58 @@ switch( $lang = @$_GET['l'] ) {
 define('SITE_NAME', _("Compara carburanti") );
 define('SITE_DESCRIPTION', _("Confronta i prezzi dei carburanti") );
 
+// libjs-jquery
 register_js(
 	'jquery',
-	URL . _ . JQUERY . '/jquery-2.1.4.min.js'
+	ROOT . '/javascript/jquery/jquery.min.js'
 );
 
-register_js(
-	'jquery.ui',
-	URL . _ . INCLUDES . '/jquery-ui/jquery-ui.min.js'
-);
+// libjs-jquery-ui
+foreach($JQUERY_UI_PARTS as $part) {
+	register_js(
+		"jquery.ui.$part",
+		ROOT . "/javascript/jquery-ui/ui/jquery.ui.$part.min.js"
+	);
+}
 
 register_js(
 	'materialize',
-	URL . _ . MATERIALIZE . '/js/materialize.min.js'
+	ROOT . _ . MATERIALIZE . '/js/materialize.min.js'
 );
 
 register_js(
 	'leaflet',
-	URL . _ . LEAFLET . '/leaflet.js'
+	ROOT . _ . LEAFLET . '/leaflet.js'
 );
 
 register_js(
 	'leaflet.bouncemarker',
-	URL . _ . INCLUDES . '/leaflet.bouncemarker/bouncemarker.js'
+	ROOT . _ . INCLUDES . '/leaflet.bouncemarker/bouncemarker.js'
 );
 
 register_js(
 	'my-fuel-map',
-	URL . _ . INCLUDES . '/scripts.js'
+	ROOT . _ . INCLUDES . '/scripts.js'
 );
 
 register_css(
 	'materialize',
-	URL . _ . MATERIALIZE . '/css/materialize.min.css'
+	ROOT . _ . MATERIALIZE . '/css/materialize.min.css'
 );
 
 register_css(
 	'leaflet',
-	URL . _ . LEAFLET . '/leaflet.css'
+	ROOT . _ . LEAFLET . '/leaflet.css'
 );
 
 register_css(
 	'my-fuel-map',
-	URL . _ . INCLUDES . '/style.css'
+	ROOT . _ . INCLUDES . '/style.css'
 );
 
 register_css(
 	'materialize.icons',
-	'https://fonts.googleapis.com/icon?family=Material+Icons'
+	ROOT . _ . INCLUDES . '/googlefonts/material-icons.css'
 );
 
 add_menu_entries([
