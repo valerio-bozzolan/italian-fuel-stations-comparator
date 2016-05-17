@@ -30,6 +30,8 @@ foreach($JQUERY_UI_PARTS as $part) {
 
 enqueue_js('leaflet');
 enqueue_js('leaflet.bouncemarker');
+
+enqueue_js('my-fuel-map.l10n');
 enqueue_js('my-fuel-map');
 
 get_header('map');
@@ -83,21 +85,5 @@ $last_price_text    = last_price_date();
 		<ol></ol>
 	</div>
 </div>
-<script>
-// Localized using GNU Gettext. Help translate using Poedit: <?php echo URL ?>/l10n/
-var L10N = {
-	errorSent: "<?php _esc_attr( _("La tua segnalazione è preziosa. Per ora però sara ignorata <_<") ) ?>",
-	addedToFavorites: "<?php _esc_attr( _("Aggiunta ai preferiti... Se funzionassero <_<") ) ?>",
-	noLocation: "<?php _esc_attr( _("Posizione non disponibile.") ) ?>",
-	pleaseZoomIn: "<?php _esc_attr( _("Trova la tua zona, zomma!") ) ?>",
-	errorTooStations: "<?php _esc_attr( _("Vedo molte stazioni. Fai zoom per scoprirle") ) ?>",
-	noStations: "<?php _esc_attr( _("Nessuna pompa di benzina in questa zona") ) ?>",
-	tooStations: "<?php _esc_attr( _("Fai zoom! Qui ci sono {n} stazioni") ) ?>",
-	litersEuros: "<?php _esc_attr( _("Litri ogni {euro} € per {station}") ) ?>",
-	actionFavorites: "<?php _esc_attr( _("Preferiti") ) ?>",
-	actionError: "<?php _esc_attr( _("Segnala errore") ) ?>",
-	noAddressFound: "<?php _esc_attr( _("Nessun indirizzo trovato. Riprova con parole più semplici.") ) ?>"
-};
-</script>
 <?php
 get_footer();

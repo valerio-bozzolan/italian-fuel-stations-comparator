@@ -94,6 +94,11 @@ register_js(
 );
 
 register_js(
+	'my-fuel-map.l10n',
+	ROOT . '/api/L10n.scripts.js.php'
+);
+
+register_js(
 	'my-fuel-map',
 	ROOT . _ . INCLUDES . '/scripts.js'
 );
