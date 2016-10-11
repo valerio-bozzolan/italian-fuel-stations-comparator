@@ -85,7 +85,7 @@ register_js(
 
 register_js(
 	'leaflet',
-	ROOT . _ . LEAFLET . '/leaflet.js'
+	'/javascript/leaflet/leaflet.js'
 );
 
 register_js(
@@ -110,7 +110,7 @@ register_css(
 
 register_css(
 	'leaflet',
-	ROOT . _ . LEAFLET . '/leaflet.css'
+	'/javascript/leaflet/leaflet.css'
 );
 
 register_css(
