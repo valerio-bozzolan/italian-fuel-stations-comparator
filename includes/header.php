@@ -18,9 +18,9 @@
  */
 
 function get_header($uid, $args = []) {
-	$args = merge_args_defaults($args, [
+	$args = array_replace( [
 		'theme' => 'default'
-	] );
+	], $args );
 
 	switch($args['theme']) {
 		case 'default':
