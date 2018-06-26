@@ -143,7 +143,7 @@ get_header('about');
 							</p>
 						</div>
 					</div>
-					<p><?php echo get_in_touch('http://boz.reyboz.it', "Valerio Bozzolan") ?></p>
+					<p><?php echo get_in_touch('https://boz.reyboz.it', "Valerio Bozzolan") ?></p>
 				</div>
 			</div>
 		</div>
