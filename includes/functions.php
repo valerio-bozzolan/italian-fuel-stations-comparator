@@ -38,11 +38,11 @@ function get_distance_between_coordinates($latitude1, $longitude1, $latitude2, $
 }
 
 function get_in_touch($url, $who) {
-	return HTML::a($url, mdi_icon('perm_contact_calendar') . _("Entra in contatto"), sprintf( _("Mettiti in contatto con %s"), $who ), 'waves-effect waves-teal btn');
+	return HTML::a($url, mdi_icon('perm_contact_calendar') . __("Entra in contatto"), sprintf( __("Mettiti in contatto con %s"), $who ), 'waves-effect waves-teal btn');
 }
 
 function legal_notes($url, $license, $project) {
-	return HTML::a($url, $license, sprintf( _("Informazioni legali su %s"), $project ) );
+	return HTML::a($url, $license, sprintf( __("Informazioni legali su %s"), $project ) );
 }
 
 /**
@@ -50,17 +50,6 @@ function legal_notes($url, $license, $project) {
  */
 function mdi_icon($uid, $class = 'left') {
 	return "<i class=\"material-icons $class\">$uid</i>";
-}
-
-/**
- * Run GNU Gettext
- */
-function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l10n', $encoding = 'UTF-8') {
-	putenv("LANG=$lang.$encoding");
-	setlocale(LC_MESSAGES, "$lang.$encoding");
-	bindtextdomain($domain, $folder);
-	textdomain($domain);
-	bind_textdomain_codeset($domain, $encoding);
 }
 
 /**
@@ -72,17 +61,20 @@ function gettext_rocks($lang = 'it_IT', $domain = 'fuel.reyboz.it', $folder = 'l
  * @return string Formatted date.
  */
 function last_price_date($format = 'd/m/Y H:i') {
-	static $lastdate = null;
+	static $lastdate = false;
 
-	if($lastdate === null) {
+	if($lastdate === false) {
 		$lastdate = query_value(
 			"SELECT MAX(price_date) AS lastdate FROM {$GLOBALS[T]('price')}",
 			'lastdate'
 		);
 	}
 
-	$d = DateTime::createFromFormat('Y-m-d H:i:s', $lastdate);
+	if( !$lastdate ) {
+		return 'errore ( il ministero ha spaccato il dataset? https://gitpull.it/T755 )';
+	}
 
+	$d = DateTime::createFromFormat('Y-m-d H:i:s', $lastdate);
 	return $d->format($format);
 }
 
