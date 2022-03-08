@@ -41,21 +41,23 @@ $last_price_text    = last_price_date();
 ?>
 <div id="overworld">
 	<div class="card-panel">
-		<h1 class="hide-on-small-only"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h1>
-		<h5 class="hide-on-med-and-up"><?php echo HTML::a(URL, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h5>
+		<h1 class="hide-on-small-only"><?= HTML::a( ROOT . _, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h1>
+		<h5 class="hide-on-med-and-up"><?= HTML::a( ROOT . _, SITE_NAME, SITE_DESCRIPTION, 'orange-text') ?></h5>
 		<noscript>
-			<p><?php _e("È necessario abilitare JavaScript. Tranquillo, viene utilizzato escusivamente software libero.") ?></p>
+			<p><?= __("È necessario abilitare JavaScript. Tranquillo, viene utilizzato escusivamente software libero.") ?></p>
 		</noscript>
 		<p><?php printf(
-			_("Confronta velocemente i prezzi fra %s stazioni di rifornimento."),
+			_("Quant'è la quantità di carburante che ottieni spendendo %2\$s euro? Confronta velocemente %s stazioni di rifornimento."),
 			HTML::tag(
 				'b',
+				// TODO: avoid full table scan
 				query_value(
 					"SELECT COUNT(*) as count FROM {$T('station')}",
 					'count'
 				),
 				HTML::property('class', 'station-counter')
-			)
+			),
+			'<b>40</b>'
 		) ?></p>
 		<p class="last-update"><?php printf(
 			_("Ultimo aggiornamento: %s."),
@@ -63,14 +65,14 @@ $last_price_text    = last_price_date();
 		) ?></p>
 		<div class="divider"></div>
 		<div class="section">
-			<a class="btn blue waves-effect waves-white" href="<?php echo URL ?>/about.php" title="<?php _esc_attr( _("Maggiori informazioni") ) ?>"><?php echo _("Maggiori info") . mdi_icon('info', 'right') ?></a>
-			<button class="btn orange close-overworld waves-effect waves-white"><?php echo _("Socchiudi scheda") . mdi_icon('close', 'right') ?></button>
+			<a class="btn blue waves-effect waves-white" href="<?= ROOT ?>/about.php" title="<?= esc_attr( __("Maggiori informazioni") ) ?>"> <?= __("Maggiori info") . mdi_icon('info', 'right') ?></a>
+			<button class="btn orange close-overworld waves-effect waves-white"> <?= __("Socchiudi scheda") . mdi_icon('close', 'right') ?></button>
 		</div>
 		<div class="divider"></div>
 		<form action="#" method="get">
 			<div class="input-field">
 				<i class="material-icons prefix">navigation</i>
-				<input type="text" name="search_address" placeholder="<?php _esc_attr( _("Cerca un indirizzo") ) ?>" />
+				<input type="text" name="search_address" placeholder="<?= esc_attr( __("Cerca un indirizzo") ) ?>" />
 			</div>
 		</form>
 	</div>
@@ -81,7 +83,7 @@ $last_price_text    = last_price_date();
 <div id="map"></div>
 <div id="modal-search-addr-results" class="modal">
 	<div class="modal-content container">
-		<h4><?php _e("Risultati ricerca") ?></h4>
+		<h4><?= __("Risultati ricerca") ?></h4>
 		<ol></ol>
 	</div>
 </div>
