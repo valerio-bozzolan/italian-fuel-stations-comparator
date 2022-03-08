@@ -92,7 +92,7 @@ $( function() {
 	map = L.map('map');
 
 	// create the tile layer with correct attribution
-	var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+	var osmUrl='https://{s}.tile.osm.org/{z}/{x}/{y}.png';
 	var osmAttrib='© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {maxZoom: 17, attribution: osmAttrib});
 	map.addLayer(osm);
