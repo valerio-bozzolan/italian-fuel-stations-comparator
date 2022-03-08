@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /*
  * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
@@ -32,6 +33,15 @@
 require __DIR__ . '/../load.php';
 require __DIR__ . '/import-mise-functions.php';
 
+// https://gitpull.it/T755
+$CSV_SEPARATOR_BUGFIX_MISE = ';'; // asd
+$CSV_ENCLOSURE_BUGFIX_MISE = '~'; // asd
+
+// 05/03/2022 01:30:05
+$MISE_DATETIME_FORMAT = 'd/m/Y H:i:s';
+
+$MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
+
 //query("TRUNCATE {$T('rel_provincia_comune')}");
 //query("TRUNCATE {$T('provincia')}");
 //query("TRUNCATE {$T('comune')}");
@@ -55,31 +65,34 @@ $fuelproviders = query_results("SELECT fuelprovider_ID, fuelprovider_uid FROM {$
 $fuelproviders = indexed_array($fuelproviders, 'fuelprovider_uid', 'fuelprovider_ID');
 
 try {
-	if( ! isset( $argv[1], $argv[2] ) ) {
-		throw new Exception(
-			sprintf(
-				_("Utilizzo: %s FILE_STAZIONI.csv PREZZI_ALLE_8.csv"),
-				esc_html( $argv[0] )
-			),
-			1
-		);
+	if( !isset( $argv[1], $argv[2] ) ) {
+		throw new Exception( sprintf(
+			__("Utilizzo: %s FILE_STAZIONI.csv PREZZI_ALLE_8.csv"),
+			esc_html( $argv[0] )
+		) );
 	}
 
-	define('FILENAME_STATIONS', $argv[1]);
-	define('FILENAME_PRICES', $argv[2]);
+	define( 'FILENAME_STATIONS', $argv[1] );
+	define( 'FILENAME_PRICES',   $argv[2] );
 
-	if( ! file_exists(FILENAME_STATIONS) ) {
-		throw new Exception( _("File delle stazioni non trovato"), 2 );
+	if( !file_exists(FILENAME_STATIONS) ) {
+		throw new Exception( __("File delle stazioni non trovato"), 2 );
 	}
 
-	if( ! $handle = fopen(FILENAME_STATIONS, 'r') ) {
-		throw new Exception( _("Impossibile aprire il file delle stazioni"), 3 );
+	// normalize shitty things
+	normalize_shitty_mise_dataset( FILENAME_STATIONS );
+
+	if( !$handle = fopen(FILENAME_STATIONS, 'r') ) {
+		throw new Exception( __("Impossibile aprire il file delle stazioni"), 3 );
 	}
 
 	// Waste first 2 lines
-	fgetcsv($handle);
-	fgetcsv($handle);
-	while( $data = fgetcsv($handle, 512, ';') ) {
+	fgetcsv( $handle );
+	fgetcsv( $handle );
+	while( $data = fgetcsv( $handle, 1000, $CSV_SEPARATOR_BUGFIX_MISE, $CSV_ENCLOSURE_BUGFIX_MISE ) ) {
+
+		clean_shitty_mise_csv_values( $data );
+
 		get_station_ID(
 			(int) $data[0] /*$station_miseID*/,
 			$data[4] /*$station_name*/,
@@ -105,33 +118,54 @@ try {
 	fclose($handle);
 
 	// Prices
-	if( ! file_exists(FILENAME_PRICES) ) {
-		throw new Exception( _("File dei prezzi non trovato"), 4 );
+	if( !file_exists(FILENAME_PRICES) ) {
+		throw new Exception( __("File dei prezzi non trovato"), 4 );
 	}
 
+	normalize_shitty_mise_dataset( FILENAME_PRICES );
+
 	if( ! $handle = fopen(FILENAME_PRICES, 'r') ) {
-		throw new Exception( _("Impossibile aprire il file dei prezzi"), 5 );
+		throw new Exception( __("Impossibile aprire il file dei prezzi"), 5 );
 	}
 
 	// Waste first 2 lines
 	fgetcsv($handle);
 	fgetcsv($handle);
 
-	while( $data = fgetcsv($handle, 255, ';') ) {
-		insert_row('price', [
-			new DBCol('price_value', (float) $data[2],          'f'),
-			new DBCol('price_self',  (int) $data[3],            'd'),
-			new DBCol('price_date',  itdate2datetime($data[4]), 's'),
-			new DBCol(
-				'fuel_ID',
-				get_fuel_ID(
-					generate_slug($data[1]) /*$fuel_uid*/,
-					$data[1] /*$fuel_name*/
+	while( $data = fgetcsv( $handle, 255, $CSV_SEPARATOR_BUGFIX_MISE, $CSV_ENCLOSURE_BUGFIX_MISE ) ) {
+
+		clean_shitty_mise_csv_values( $data );
+
+		$stat_id  = $data[0];
+		$fuel_uid = $data[1];
+		$price    = $data[2];
+		$self     = $data[3];
+		$date_raw = $data[4];
+
+		// the date is expressed in this way
+		// 05/03/2022 01:30:05
+		$date = DateTime::createFromFormat( $MISE_DATETIME_FORMAT, $date_raw );
+
+		if( $date ) {
+			$date_mysql = $date->format( $MYSQL_DATE_FORMAT );
+
+			insert_row('price', [
+				new DBCol('price_value', (float) $price,            'f'),
+				new DBCol('price_self',  (int) $self,               'd'),
+				new DBCol('price_date',  $date_mysql,               's'),
+				new DBCol(
+					'fuel_ID',
+					get_fuel_ID(
+						generate_slug( $fuel_uid ),
+						$fuel_uid, // fuel_name
+					),
+					'd'
 				),
-				'd'
-			),
-			new DBCol('station_ID', get_station_ID( (int) $data[0] ), 'd')
-		] );
+				new DBCol('station_ID', get_station_ID( (int) $stat_id ), 'd')
+			] );
+		} else {
+			echo "Warning: nonsense date '$date' related to stat ID '$stat_id' \n";
+		}
 	}
 
 	fclose($handle);
@@ -142,5 +176,6 @@ try {
 		$e->getMessage()
 	);
 	echo "\n";
+	echo $e->getTraceAsString() . "\n";
 	exit( $e->getCode() );
 }

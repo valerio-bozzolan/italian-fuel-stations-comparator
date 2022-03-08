@@ -33,7 +33,7 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 	}
 
 	if( $station_name === null ) {
-		throw new Exception( _("La stazione miseID %d doveva essere già stata inserita"), $station_miseID );
+		throw new Exception( __("La stazione miseID %d doveva essere già stata inserita"), $station_miseID );
 	}
 
 	if($station_type ===  'Altro') {
@@ -43,7 +43,7 @@ function get_station_ID($station_miseID, $station_name = null, $station_type = n
 	} elseif($station_type === 'Autostradale') {
 		 $station_type = 'AUTOSTRADALE';
 	} else {
-		throw new Exception( sprintf( "Tipo di stazione non prevista: %s", esc_html( $station_type ) ) );
+		throw new Exception( sprintf( "Tipo di stazione non prevista: %s", $station_type ) );
 	}
 
 	insert_row('station', [
@@ -149,6 +149,10 @@ function get_stationowner_ID($stationowner_uid, $stationowner_name) {
 		$stationowner_note = null;
 	}
 
+	if( strlen( $stationowner_uid ) > 255 ) {
+		throw new Exception( sprintf( "what: %s", $stationowner_uid ) );
+	}
+
 	// Another check
 	if( isset( $stationowners[ $stationowner_uid ] ) ) {
 		return $stationowners[ $stationowner_uid ];
@@ -231,4 +235,21 @@ function get_provincia_ID($provincia_uid, $provincia_name) {
 function itdate2datetime($time) {
 	$dateTime = DateTime::createFromFormat('d/m/Y H:i:s', $time);
 	return $dateTime->format('Y-m-d H:i:s');
+}
+
+function normalize_shitty_mise_dataset( $file ) {
+
+	$contents = file_get_contents( $file );
+	$contents = str_replace( "\n\n+", "\n", $contents );
+	file_put_contents( $file, $contents );
+
+}
+
+function clean_shitty_mise_csv_values( & $data ) {
+
+	// for now just trim shit
+	foreach( $data as $k => &$v ) {
+		$v = trim( $v );
+	}
+
 }
