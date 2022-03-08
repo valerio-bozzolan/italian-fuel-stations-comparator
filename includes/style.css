@@ -1,6 +1,7 @@
 /*
  * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
  * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+ * Copyright (C) 2022 Valerio Bozzolan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,7 +31,7 @@ html, body {
 	position:absolute;
 	top:0;
 	left:50px;
-	z-index:100;
+	z-index:500;
 	margin-right:10px;
 }
 #overworld .last-update {
@@ -46,7 +47,7 @@ html, body {
 	position:absolute;
 	top:5px;
 	left:50px;
-	z-index:100;
+	z-index:1000;
 }
 .leaflet-popup-content {
 	font-family: "Roboto";
