@@ -1,6 +1,7 @@
 <?php
 # Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
 # Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+# Copyright (C) 2022 Valerio Bozzolan
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -15,16 +16,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// Customizing Boz PHP - Another PHP framework
-expect('menu');
+// this file should not be visited directly
+if( !defined( 'URL' ) ) {
+	exit;
+}
 
-define('INCLUDES', 'includes');
-define('IMAGES', 'images');
-define('MATERIALIZE', INCLUDES . _ . 'materialize');
-define('LEAFLET', INCLUDES . _ . 'leaflet');
+// customizing suckless-php
+define( 'INCLUDES', 'includes' );
+define( 'IMAGES',   'images' );
+define( 'MATERIALIZE', INCLUDES . _ . 'materialize' );
+define( 'LEAFLET',     INCLUDES . _ . 'leaflet' );
 
 $JQUERY_UI_PARTS = [
 	'core',
+];
+
+$JQUERY_UI_WIDGETS = [
 	'widget',
 	'mouse',
 	'position',
@@ -36,51 +43,49 @@ $JQUERY_UI_PARTS = [
 ];
 
 // Load functions
-require ABSPATH . _ . INCLUDES . '/functions.php';
-require ABSPATH . _ . INCLUDES . '/classes.php';
-require ABSPATH . _ . INCLUDES . '/header.php';
-require ABSPATH . _ . INCLUDES . '/footer.php';
+require ABSPATH . __ . INCLUDES . '/functions.php';
+require ABSPATH . __ . INCLUDES . '/classes.php';
+require ABSPATH . __ . INCLUDES . '/header.php';
+require ABSPATH . __ . INCLUDES . '/footer.php';
 
 // Choose language
 switch( $lang = @$_GET['l'] ) {
 	case 'en_US':
 	case 'it_IT':
-		gettext_rocks($lang);
+		apply_language( $lang );
 		break;
 	default:
-		// Choose from browser settings
-		switch( substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ) {
-			case 'it':
-				gettext_rocks('it_IT');
-				break;
-			case 'en':
-				gettext_rocks('en_US');
-				break;
-			default:
-				gettext_rocks('en_US');
-		}
+		apply_language();
 }
 
-define('SITE_NAME', _("Compara carburanti") );
-define('SITE_DESCRIPTION', _("Confronta i prezzi dei carburanti") );
+define('SITE_NAME',        __("Compara carburanti") );
+define('SITE_DESCRIPTION', __("Confronta i prezzi dei carburanti") );
 
 // libjs-jquery
 register_js(
 	'jquery',
-	ROOT . '/javascript/jquery/jquery.min.js'
+	'/javascript/jquery/jquery.min.js'
 );
 
-// libjs-jquery-ui
-foreach($JQUERY_UI_PARTS as $part) {
+// apt install libjs-jquery-ui
+foreach( $JQUERY_UI_PARTS as $part ) {
 	register_js(
 		"jquery.ui.$part",
-		ROOT . "/javascript/jquery-ui/ui/jquery.ui.$part.min.js"
+		"/javascript/jquery-ui/ui/$part.min.js"
+	);
+}
+
+// apt install libjs-jquery-ui
+foreach( $JQUERY_UI_WIDGETS as $part ) {
+	register_js(
+		"jquery.ui.$part",
+		"/javascript/jquery-ui/ui/widgets/$part.min.js"
 	);
 }
 
 register_js(
 	'materialize',
-	ROOT . _ . MATERIALIZE . '/js/materialize.min.js'
+	MATERIALIZE . '/js/materialize.min.js'
 );
 
 register_js(
@@ -90,22 +95,22 @@ register_js(
 
 register_js(
 	'leaflet.bouncemarker',
-	ROOT . _ . INCLUDES . '/leaflet.bouncemarker/bouncemarker.js'
+	INCLUDES . '/leaflet.bouncemarker/bouncemarker.js'
 );
 
 register_js(
 	'my-fuel-map.l10n',
-	ROOT . '/api/L10n.scripts.js.php'
+	'api/L10n.scripts.js.php'
 );
 
 register_js(
 	'my-fuel-map',
-	ROOT . _ . INCLUDES . '/scripts.js'
+	INCLUDES . '/scripts.js'
 );
 
 register_css(
 	'materialize',
-	ROOT . _ . MATERIALIZE . '/css/materialize.min.css'
+	MATERIALIZE . '/css/materialize.min.css'
 );
 
 register_css(
@@ -115,15 +120,15 @@ register_css(
 
 register_css(
 	'my-fuel-map',
-	ROOT . _ . INCLUDES . '/style.css'
+	INCLUDES . '/style.css'
 );
 
 register_css(
 	'materialize.icons',
-	ROOT . _ . INCLUDES . '/googlefonts/material-icons.css'
+	INCLUDES . '/googlefonts/material-icons.css'
 );
 
-add_menu_entries([
-	new MenuEntry('map',   URL,                _("Mappa carburanti") ),
-	new MenuEntry('about', URL . '/about.php', _("Informazioni sulla piattaforma") )
-]);
+add_menu_entries( [
+	new MenuEntry( 'map',   '',          __("Mappa carburanti")               ),
+	new MenuEntry( 'about', 'about.php', __("Informazioni sulla piattaforma") ),
+] );

@@ -36,13 +36,13 @@ function get_header($uid, $args = []) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo SITE_NAME ?> - <?php echo get_menu_entry($uid)->name ?></title>
+	<title><?= SITE_NAME ?> - <?= menu_entry($uid)->name ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta property="og:title" content="<?php echo get_menu_entry($uid)->name ?>" />
-	<meta property="og:url" content="<?php echo get_menu_entry($uid)->url ?>" />
-	<meta property="og:image" content="<?php echo URL . _ . IMAGES . '/fuel-300px.png' ?>" />
+	<meta property="og:title" content="<?= menu_entry($uid)->name ?>" />
+	<meta property="og:url" content="<?= menu_entry($uid)->url ?>" />
+	<meta property="og:image" content="<?= URL . _ . IMAGES . '/fuel-300px.png' ?>" />
 	<meta property="og:type" content="website" />
-	<link rel="icon" type="image/jpeg" href="<?php echo URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('header') ?>
+	<link rel="icon" type="image/jpeg" href="<?= URL . _ . IMAGES . '/fuel-64px.png' ?>" /><?php load_module('header') ?>
 
 </head>
 <!--
@@ -63,7 +63,7 @@ function get_header($uid, $args = []) {
 }
 
 function print_title($uid) {
-	$menuEntry = get_menu_entry($uid);
+	$menuEntry = menu_entry($uid);
 	echo "<h1>" . HTML::a(
 		$menuEntry->url,
 		$menuEntry->name,
