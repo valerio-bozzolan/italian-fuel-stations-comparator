@@ -1,6 +1,7 @@
 /*
  * Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
  * Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+ * Copyright (C) 2022 Valerio Bozzolan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -48,11 +49,11 @@ var Overworld = {
 		}
 		Overworld.running = true;
 
-		Overworld.$el.hide("drop", {direction: "up"}, "slow", function() {
-			Overworld.$action.show("drop", {direction: "up"}, "fast", function() {
+		Overworld.$el.hide( "slow", function() {
+			Overworld.$action.show( "fast", function() {
 				Overworld.running = false;
 			});
-		});	
+		});
 	},
 	show: function() {
 		if(Overworld.running) {
@@ -64,8 +65,8 @@ var Overworld = {
 
 		Overworld.$el.find("input").val("");
 
-		Overworld.$action.hide("drop", {direction: "up"}, "slow", function() {
-			Overworld.$el.show("drop", {direction: "up"}, "fast", function() {
+		Overworld.$action.hide( "slow", function() {
+			Overworld.$el.show( "fast", function() {
 				Overworld.$el.find("input").focus();
 				Overworld.running = false;
 			});
@@ -73,10 +74,10 @@ var Overworld = {
 	}
 };
 
-$(document).ready(function() {
+$( function() {
 
 	Overworld.$action = $("#overworld-buttons");
-	Overworld.$el	  = $("#overworld"); 
+	Overworld.$el	  = $("#overworld");
 	Overworld.$action.hide().click( Overworld.show );
 
 	$(".close-overworld").click( Overworld.hide );
@@ -92,8 +93,8 @@ $(document).ready(function() {
 
 	// create the tile layer with correct attribution
 	var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-	var osmAttrib='© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var osm = new L.TileLayer(osmUrl, {maxZoom: 17, attribution: osmAttrib});		
+	var osmAttrib='© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+	var osm = new L.TileLayer(osmUrl, {maxZoom: 17, attribution: osmAttrib});
 	map.addLayer(osm);
 
 	map.setView([41.49, 13.11], 6);
@@ -273,7 +274,7 @@ function nominatimJsonp(json) {
 					.text(json[i].licence)
 				)
 			);
-		}          
+		}
 		// Result links
 		$searchResults.find("a").click(function() {
 			$searchResults.closeModal();
