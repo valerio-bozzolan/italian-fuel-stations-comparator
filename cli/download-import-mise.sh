@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 #############################################################################
 #
-# Copyright (C) 2015  Valerio Bozzolan
+# Copyright (C) 2015, 2021  Valerio Bozzolan
 #
 #############################################################################
 #
@@ -20,35 +20,26 @@
 #
 #############################################################################
 
-# This script downloads two files from the MISE and import them
-
-path="$1"
-if [ -z "$path" ]; then
-	echo "Usage:   $0 IMPORTER"
-	echo "Example: $0 \"php /var/www/cli/import-mise.php\""
-	echo "The IMPORTER will receive two args: the petrol stations and the prices, as downloaded from the MISE"
-	exit 1;
-fi
-
 # You are wrong.. I'm not curl!
-wgets() {
-	curl "http://www.sviluppoeconomico.gov.it/images/exportCSV/$1" -o "$2" \
-	-H 'Host: www.sviluppoeconomico.gov.it' \
-	-H 'User-Agent: Mozilla/5.0 (X11; Debian; Linux x86_64; rv:39.0) Gecko/20100101 Iceweasel/39.0' \
-	-H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
-	-H 'Accept-Language: en-US,it-IT;q=0.8,it;q=0.5,en;q=0.3' \
-	--compressed -H 'Connection: keep-alive' \
-	--silent
+not_really_curl() {
+	local url="https://www.mise.gov.it/images/exportCSV/$1"
+
+	curl "$url" \
+		--output "$2" \
+		--header 'User-Agent: Mozilla/5.0 (X11; Debian; Linux x86_64; rv:39.0) Gecko/20100101 Iceweasel/39.0' \
+		--header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+		--header 'Accept-Language: en-US,it-IT;q=0.8,it;q=0.5,en;q=0.3' \
+		--header 'Connection: keep-alive' \
+		--compressed \
+		--silent
 }
 
-stations="$(mktemp)"
-prices="$(mktemp)"
+stations="stations.csv"
+prices="prices.csv"
 
-wgets "anagrafica_impianti_attivi.csv" "$stations"
-wgets "prezzo_alle_8.csv"              "$prices"
+# download shit
+not_really_curl "anagrafica_impianti_attivi.csv" "$stations"
+not_really_curl "prezzo_alle_8.csv"              "$prices"
 
-# This will be something as:
-# php .cli/import-mise.php /tmp/tmp.asduioasd /tmp/tmp.oisuodiasu
-$1 "$stations" "$prices"
-
-rm "$stations" "$prices"
+# import shit
+php "$(dirname $0)"/import-mise.php "$stations" "$prices"
