@@ -1,37 +1,70 @@
-# Italian petrol pumps comparator
-![Italian petrol pumps comparator](http://fuel.reyboz.it/images/fuel-64px.png)
+# Italian fuel pumps comparator
 
-This web app allows you to list in a map and sort all fuel suppliers who are in a particular area, also it provides the current prices on every suppliers.
+This webapp creates an OpenStreetMap map with all fuel stations and their current prices.
 
-We have engineered this solution in a Hackathon that was sponsored by *Facile.it*, an Italian price comparator. This submission **won the competition**.
+We engineered this solution in a Hackathon that was organized by Facile.it in 2015. This submission **won the competition**.
 
 ## Use
-Use the http://fuel.reyboz.it online mirror. It has data updated on a daily basis.
+
+You can just use this online mirror:
+
+https://fuel.reyboz.it
+
+It should have the data updated on a daily basis.
 
 ## More about
-Heroes and original technologies in the [/about.php](http://fuel.reyboz.it/about.php) page of the online mirror.
+
+Heroes and original technologies in the about page:
+
+https://fuel.reyboz.it/about.php
 
 ## Hacking
-Go in your `www` folder and clone the source code using GNU Bazaar:
 
-    bzr branch lp:it-fuel-stations-comparator
+Clone the source code somewhere using git:
 
-## Installation
-Have GNU/Linux, PHP and MySQL/MariaDB working.
+```
+git clone https://gitpull.it/source/italian-fuel-comparator/
+git clone https://gitpull.it/source/suckless-php/
+```
 
-This project is built over the [Boz-PHP - Another PHP framework](https://github.com/valerio-bozzolan/boz-php-another-php-framework). Install it in your `/usr/share`:
+Then enter in the directory of the main project and fill your configuration:
 
-    bzr branch lp:boz-php-another-php-framework /usr/share/boz-php-another-php-framework
+```
+cd italian-fuel-comparator/
+```
 
-Import in MySQL/MariaDB the `database-schema.sql` from the `installation` folder.
+And fill the configuration:
 
-Also in the `installation` folder copy the `load-sample.php` in the root folder as `load.php` and fill with your MySQL/MariaDB credentials.
+```
+cp installation/load-example.php load.php
+nano load.php
+```
 
-Remember to run the `cli/localize.sh` twice to enable translations.
+Then you are ready to test:
 
-Remember to install the `libjs-leaflet php-gettext` packages.
+```
+cd italian-fuel-comparator
+php -S localhost:8000
+```
+
+Have fun visiting this and working in realtime:
+
+http://localhost:8000
+
+NOTE: At this point you may still need some dependencies like jQuery. We don't have this problem because we have done `apt install libjs-jquery` in production in our Debian GNU/Linux webserver and it just works.
+
+Read the next section.
+
+## Database
+
+Enter in MySQL and import the database schema. Example command:
+
+```
+mysql MY_DATABASE < installation/database-schema.sql
+```
 
 ## Import data from MISE
+
 Please download data from the Italian [Ministero dello Sviluppo Economico](http://www.sviluppoeconomico.gov.it/index.php/it/open-data/elenco-dataset/2032336-carburanti-prezzi-praticati-e-anagrafica-degli-impianti):
  * http://www.sviluppoeconomico.gov.it/images/exportCSV/prezzo_alle_8.csv
  * http://www.sviluppoeconomico.gov.it/images/exportCSV/anagrafica_impianti_attivi.csv
@@ -39,30 +72,35 @@ Please download data from the Italian [Ministero dello Sviluppo Economico](http:
 They are released under the terms of the Italian [Open Data License v2.0](http://www.dati.gov.it/iodl/2.0/).
 
 ### Manually import MISE .csv
+
 The `cli/import-mise.php` helps you:
 
-    php ./cli/import-mise.php anagrafica_impianti_attivi.csv prezzo_alle_8.csv
+    php ./cli/import-mise.php
 
 ### Automatically download and import MISE .csv
-Put a similar line in your cronjob:
 
-    /var/www/cli/download-import-mise.sh "php /var/www/cli/import-mise.php"
+Put a similar line in your `crontab -e`:
+
+    /var/www/cli/download-import-mise.sh
 
 .. or:
 
-    su www-data -s /bin/sh -c '/var/www/cli/download-import-mise.sh "php /var/www/cli/import-mise.php"'
+    su www-data -s /bin/sh -c /var/www/cli/download-import-mise.sh
 
 ## Pull requests
-Push in Launchpad:
 
-https://code.launchpad.net/it-fuel-stations-comparator
+Pull requests are accepted via GitHub (simple) or via Phabricator (funny).
 
 ## Translations
+
 Translations are easily made using GNU Gettext. See the `l10n/` folder structure. Use something as Poedit to edit existing `.po` files or to create a new one from the `.pot`.
 
-Remember to run the `cli/localize.sh` script before editing a `.po` file. Also run it *twice* when you finished.
+Remember to run this command twice every time you want to start to translate some `.po` files:
 
-The site language switcher is in the `load-post.php`. That part sucks but it works.
+```
+./cli/localize.sh
+```
 
 ## License
+
 This is a **Free** as in **Freedom** project. It comes with ABSOLUTELY NO WARRANTY. You are welcome to redistribute it under the terms of the **GNU Affero General Public License v3+**.
