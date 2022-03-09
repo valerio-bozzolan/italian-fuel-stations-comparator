@@ -89,7 +89,15 @@ Put a similar line in your `crontab -e`:
 
 ## Pull requests
 
-Pull requests are accepted via GitHub (simple) or via Phabricator (funny).
+Pull requests are accepted via GitPull.it (funny) or via GitHub (simple).
+
+GitPull.it repository:
+
+* https://gitpull.it/source/italian-fuel-comparator/
+
+GitHub repository:
+
+* https://github.com/valerio-bozzolan/italian-fuel-stations-comparator
 
 ## Translations
 
@@ -101,6 +109,26 @@ Remember to run this command twice every time you want to start to translate som
 ./cli/localize.sh
 ```
 
+## Bugs and Ideas
+
+Any idea or any bug can be submitted on GitPull.it here:
+
+* https://gitpull.it/tag/italian_fuel_comparator/
+
+NOTE: GitPull.it has an automatic registration via GitHub.
+
+If you don't want to create a bug request, just contact this person using the first email address in that list:
+
+* https://boz.reyboz.it/
+
+Thank you so much for your support!
+
 ## License
 
+Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+
+Copyright (C) 2016-2022 Valerio Bozzolan
+
 This is a **Free** as in **Freedom** project. It comes with ABSOLUTELY NO WARRANTY. You are welcome to redistribute it under the terms of the **GNU Affero General Public License v3+**.
+
+You can do whatever you want with this project, also for commercial purposes, but you have to give the same freedoms to everyone.
