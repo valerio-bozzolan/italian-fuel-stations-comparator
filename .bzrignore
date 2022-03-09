@@ -1,8 +1,0 @@
-# Boz-PHP - Another PHP Framework configuration file
-load.php
-
-# MISE files
-*.csv
-
-# GNU Gettext binary files
-*.mo
