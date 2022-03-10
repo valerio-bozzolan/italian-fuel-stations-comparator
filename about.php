@@ -1,6 +1,7 @@
 <?php
 # Italian petrol pumps comparator - Project born (and winner) at hackaton Facile.it 2015
 # Copyright (C) 2015 Valerio Bozzolan, Marcelino Franchini, Fabio Mottan, Alexander Bustamente, Cesare de Cal, Edoardo de Cal
+# Copyright (C) 2022 Valerio Bozzolan
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -232,7 +233,7 @@ get_header('about');
 			<p><?= HTML::a(URL, mdi_icon('location_on') . __("Torna alla mappa"), __("Torna a %s", SITE_NAME), 'btn orange waves-effect waves-white' ) ?></p>
 		</div>
 		<div class="col s12 m6">
-			<p><?= HTML::a('https://launchpad.net/it-fuel-stations-comparator', mdi_icon('share') . __("Clona il codice"), __("Clona"), 'btn red waves-effect waves-white' ) ?></p>
+			<p><?= HTML::a('https://gitpull.it/source/italian-fuel-comparator/', mdi_icon('share') . __("Clona il codice"), __("Clona"), 'btn red waves-effect waves-white' ) ?></p>
 		</div>
 	</div>
 </div>
